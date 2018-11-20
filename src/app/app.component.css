@@ -1,0 +1,6 @@
+.clickable-text {
+    color: lightblue;
+}
+.clickable-text:hover{
+    background: lavender;
+}

@@ -18,13 +18,12 @@ export class RxService {
 
     // Allows for optional input of (null, id#)
   getList(patient: Patient, id?: number) {
-    console.log(patient);
     if (!patient && id) {
       patient = new Patient();
       patient.id = id;
     }
     const url = this.url + 'list';
-    const payload = patient.toJsonString();
+    const payload = JSON.stringify(patient);
     console.log('rx service ' + payload);
     return this.httpClient.post<Rx[]>(url, payload,
       {headers:
@@ -32,5 +31,18 @@ export class RxService {
       });
   }
 
+  getArchive(patient: Patient, id?: number) {
+    if (!patient && id) {
+      patient = new Patient();
+      patient.id = id;
+    }
+    const url = this.url + 'archive';
+    const payload = JSON.stringify(patient);
+    console.log('rx service ' + payload);
+    return this.httpClient.post<Rx[]>(url, payload,
+      {headers:
+        {'Content-Type': 'application/json'}
+    });
+  }
 
 }

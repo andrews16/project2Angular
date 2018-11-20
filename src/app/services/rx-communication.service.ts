@@ -12,6 +12,8 @@ export class RxCommunicationService {
   currentRx: Rx;
   $rxList = new Subject<Rx[]>();
   currentRxList: Rx[];
+  $rxArchive = new Subject<Rx[]>();
+  currentRxArchive: Rx[];
 
   currentPatient: Patient;
 
@@ -28,6 +30,11 @@ export class RxCommunicationService {
     }
     this.$rxList.next(rxList);
     this.currentRxList = rxList;
+  }
+
+  nextRxArchive(rxArchive: Rx[]) {
+    this.$rxArchive.next(rxArchive);
+    this.currentRxArchive = rxArchive;
   }
 
 }
