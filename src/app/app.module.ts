@@ -23,6 +23,7 @@ import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
+import { NavComponent } from './components/nav/nav.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-vie
     LoadingComponent,
     RxTableComponent,
     ArchiveTableComponent,
-    DoctorViewRxComponent
+    DoctorViewRxComponent,
+    NavComponent
   ],
   imports: [
     AppRoutingModule,

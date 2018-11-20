@@ -1,0 +1,24 @@
+<nav>
+  <ul>
+    <li>
+      <a routerLink="" [class.activated]="currentUrl == '/'">
+        <i class="material-icons">fingerprint</i>
+      </a>
+    </li>
+    <li>
+        <a routerLink="billing" [class.activated]="currentUrl == '/billing'" >
+          <i class="material-icons">announcement</i>
+        </a>
+      </li>
+    <li>
+      <a routerLink="rx" [class.activated]="currentUrl == '/rx'" >
+        <i class="material-icons">hourglass_empty</i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="visits" [class.activated]="currentUrl == '/visits'" >
+        <i class="material-icons">done</i>
+      </a>
+    </li>
+  </ul>
+</nav>
