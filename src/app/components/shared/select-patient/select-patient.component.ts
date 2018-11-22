@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient';
-import { PatientCommunicationService } from 'src/app/services/patient-communication.service';
 
 @Component({
   selector: 'app-select-patient',
@@ -12,7 +11,6 @@ export class SelectPatientComponent implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    private patientComm: PatientCommunicationService
   ) { }
 
   id: number;
@@ -31,9 +29,9 @@ export class SelectPatientComponent implements OnInit {
 
   }
 
-  searchPatient() {
+  searchPatient(id?: number) {
     const patient = new Patient();
-    patient.id = this.id;
+    patient.id = id ? id : this.id;
     patient.lastName = this.lastName;
     patient.birthday = this.birthday;
     const errorBox = document.getElementById('patient-error-message');
@@ -48,16 +46,17 @@ export class SelectPatientComponent implements OnInit {
       } else {
         this.multipleResults = false;
         errorBox.innerText = '';
-        this.patientComm.nextPatient(data[0]);
+        this.patientService.nextPatient(data[0]);
       }
     }, (err) => {
+      if ( err.status % 399 < 100 ) {
+      console.log('select-patient-ts');
+      console.log(err);
       errorBox.innerText = 'Error! ' + err.status;
+      } else {
+        errorBox.innerText = 'Unresolved server error! ' + err.status;
+      }
     });
-  }
-
-  selectPatient(n: number) {
-    this.patientComm.nextPatient(this.pList[n]);
-    this.multipleResults = false;
   }
 
 }

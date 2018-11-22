@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { RxService } from 'src/app/services/rx.service';
 import { Patient } from 'src/app/models/patient';
-import { RxCommunicationService } from 'src/app/services/rx-communication.service';
 import { Subscription } from 'rxjs';
-import { PatientCommunicationService } from 'src/app/services/patient-communication.service';
+import { PatientService } from 'src/app/services/patient.service';
 
 
 @Component({
@@ -20,12 +19,12 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
   currentPatient: Patient;
 
   showArchive = false;
+  loadingArchive = false;
 
   @Input() id: number;
 
   constructor(private rxService: RxService,
-     private rxComm: RxCommunicationService,
-     private patientComm: PatientCommunicationService) { }
+     private patientComm: PatientService) { }
 
   ngOnInit() {
     this.currentPatientSub = this.patientComm.$patient.subscribe((data) => {
@@ -43,11 +42,6 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Search method will be used to process the input
-  searchRx() {
-//    this.getRxList(patient);
-  }
-
   getRxList(payload: Patient) {
     this.loading = true;
     const errorBox = document.getElementById('error-message');
@@ -55,9 +49,10 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
       (data) => {
         console.log('doctor-view-rx getlist');
         console.log(data);
-      this.rxComm.nextRxList(data);
+      this.rxService.nextRxList(data);
       errorBox.innerText = '';
       this.success = true;
+      this.loading = false;
       },
       (err) => {
         if ( err.status % 399 < 100 ) {
@@ -73,12 +68,15 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
 
   getArchive(payload: Patient) {
     this.loading = true;
-    const errorBox = document.getElementById('error-message');
+    const errorBox = document.getElementById('error-archive-message');
     this.rxService.getArchive(payload).subscribe(
       (data) => {
-      this.rxComm.nextRxList(data);
-      errorBox.innerText = '';
-      this.success = true;
+        if (data[0] === null) {
+          errorBox.innerText = 'No archive!';
+        }
+        this.rxService.nextRxList(data);
+        errorBox.innerText = '';
+        this.showArchive = true;
       },
       (err) => {
       if ( err.status % 399 < 100 ) {
@@ -87,8 +85,6 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
         this.loading = false;
       } else {
         errorBox.innerHTML = 'Error! ' +  err.status;
-        console.log('Log from doc-view-rx');
-        console.log(err);
         this.loading = false;
       }
     });

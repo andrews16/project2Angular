@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Patient } from '../models/patient';
 import { GlobalsService } from './globals.service';
 import { Rx } from '../models/rx';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,36 @@ import { Rx } from '../models/rx';
 export class RxService {
 
   url: string;
+  $rx = new Subject<Rx>();
+  currentRx: Rx;
+  $rxList = new Subject<Rx[]>();
+  currentRxList: Rx[];
+  $rxArchive = new Subject<Rx[]>();
+  currentRxArchive: Rx[];
 
   constructor(private httpClient: HttpClient,
     private globals: GlobalsService) {
-      this.url = this.globals.apiUrl + 'rx/';
+      this.url = this.globals.API_URL + 'rx/';
+  }
+
+  nextRx(rx: Rx) {
+    this.$rx.next(rx);
+    this.currentRx = rx;
+  }
+
+  nextRxList(rxList: Rx[]) {
+    if (!rxList) {
+      console.log('Rx-comm-service no rxlist to push!');
     }
+    this.$rxList.next(rxList);
+    this.currentRxList = rxList;
+  }
+
+  nextRxArchive(rxArchive: Rx[]) {
+    this.$rxArchive.next(rxArchive);
+    this.currentRxArchive = rxArchive;
+  }
+
 
     // Allows for optional input of (null, id#)
   getList(patient: Patient, id?: number) {
@@ -22,10 +48,10 @@ export class RxService {
       patient = new Patient();
       patient.id = id;
     }
-    const url = this.url + 'list';
+    const url = `${this.url}${patient.id}`;
     const payload = JSON.stringify(patient);
     console.log('rx service ' + payload);
-    return this.httpClient.post<Rx[]>(url, payload,
+    return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
       });
@@ -36,10 +62,19 @@ export class RxService {
       patient = new Patient();
       patient.id = id;
     }
-    const url = this.url + 'archive';
+    const url = `${this.url}archive/${patient.id}`;
     const payload = JSON.stringify(patient);
     console.log('rx service ' + payload);
-    return this.httpClient.post<Rx[]>(url, payload,
+    return this.httpClient.get<Rx[]>(url,
+      {headers:
+        {'Content-Type': 'application/json'}
+    });
+  }
+
+  remove(id: number) {
+    const url = `${this.url}remove/${id}`;
+    console.log('rx service remove' + id);
+    return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
     });

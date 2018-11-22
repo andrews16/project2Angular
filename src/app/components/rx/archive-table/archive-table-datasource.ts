@@ -1,22 +1,27 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, Subscription } from 'rxjs';
 import { Rx } from 'src/app/models/rx';
-import { RxCommunicationService } from 'src/app/services/rx-communication.service';
+import { RxService } from 'src/app/services/rx.service';
+import { OnDestroy } from '@angular/core';
 
 /**
  * Data source for the ArchiveTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ArchiveTableDataSource extends DataSource<Rx> {
+export class ArchiveTableDataSource extends DataSource<Rx> implements OnDestroy {
 
   data: Rx[];
+  archiveSub: Subscription;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort, private rxComm: RxCommunicationService) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, private rxComm: RxService) {
     super();
     this.data = this.rxComm.currentRxArchive;
+    this.archiveSub = rxComm.$rxArchive.subscribe( (data) => {
+    this.data = data;
+    });
   }
 
 
@@ -46,7 +51,13 @@ export class ArchiveTableDataSource extends DataSource<Rx> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() {}
+  disconnect() { }
+
+  ngOnDestroy() {
+    if (this.archiveSub) {
+      this.archiveSub.unsubscribe();
+    }
+  }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,

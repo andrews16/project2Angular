@@ -6,15 +6,16 @@ OR
 
 <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient()" />
 <br>
-<button (click)="searchPatient()">Select Patient</button>
+<button mat-raised-button (click)="searchPatient()">Select Patient</button>
+
 
 <div id="patient-error-message"></div>
 
 <div *ngIf="multipleResults">
     More than one patient matched your request. Please select one: <br>
     <div *ngFor="let patient of pList; let i = index">
-       <button mat-raised-button (click)="searchPatient(i)" > 
-           {{ patient.firstName }}
+       <button mat-stroked-button class="select-patient-button" (click)="searchPatient(i)" > 
+           {{ patient.firstName }} {{ patient.lastName }}, Birthday : {{patient.birthday}}
        </button>
     </div>
 
