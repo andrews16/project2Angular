@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { RxService } from 'src/app/services/rx.service';
 import { Patient } from 'src/app/models/patient';
-import { RxCommunicationService } from 'src/app/services/rx-communication.service';
+import { Subscription } from 'rxjs';
+import { PatientService } from 'src/app/services/patient.service';
 
 
 @Component({
@@ -14,60 +15,80 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
   loading: boolean;
   success: boolean;
 
-  search = new Patient();
-  patientId: number;
-//  lastName: string;
-//  birthday: string;
+  currentPatientSub: Subscription;
+  currentPatient: Patient;
+
+  showArchive = false;
+  loadingArchive = false;
 
   @Input() id: number;
 
-  constructor(private rxService: RxService, private rxComm: RxCommunicationService) { }
+  constructor(private rxService: RxService,
+     private patientComm: PatientService) { }
 
   ngOnInit() {
+    this.currentPatientSub = this.patientComm.$patient.subscribe((data) => {
+      this.currentPatient = <Patient> data;
+      console.log(data);
+      this.getRxList(this.currentPatient);
+    });
+
   }
 
-  // On destroy, clear the patient info in the RxCommService
+  // On destroy, clear the patient info
   ngOnDestroy() {
-    this.rxComm.currentPatient = undefined;
-  }
-
-  // Search method will be used to process the input
-  searchRx() {
-    const patient = new Patient();
-    patient.id = this.patientId;
-    console.log(patient);
-//    patient.lastName = this.lastName;
-//    patient.birthday = this.birthday;
-    this.getRxList(patient);
+    if (this.currentPatientSub) {
+      this.currentPatientSub.unsubscribe();
+    }
   }
 
   getRxList(payload: Patient) {
     this.loading = true;
     const errorBox = document.getElementById('error-message');
-
     this.rxService.getList(payload).subscribe(
       (data) => {
-        console.log('doctor-view-rx');
+        console.log('doctor-view-rx getlist');
         console.log(data);
-      this.rxComm.nextRxList(data);
+      this.rxService.nextRxList(data);
       errorBox.innerText = '';
       this.success = true;
+      this.loading = false;
       },
       (err) => {
-      if (err.status === 404) {
+        if ( err.status % 399 < 100 ) {
+          this.success = false;
+          errorBox.innerText = `No prescriptions found!`;
+          this.loading = false;
+        } else {
+          errorBox.innerHTML = 'Error! ' +  err.status;
+          this.loading = false;
+        }
+      });
+  }
+
+  getArchive(payload: Patient) {
+    this.loading = true;
+    const errorBox = document.getElementById('error-archive-message');
+    this.rxService.getArchive(payload).subscribe(
+      (data) => {
+        if (data[0] === null) {
+          errorBox.innerText = 'No archive!';
+        }
+        this.rxService.nextRxList(data);
+        errorBox.innerText = '';
+        this.showArchive = true;
+      },
+      (err) => {
+      if ( err.status % 399 < 100 ) {
         this.success = false;
         errorBox.innerText = `No prescriptions found!`;
         this.loading = false;
       } else {
         errorBox.innerHTML = 'Error! ' +  err.status;
-        console.log('Log from doc-view-rx');
-        console.log(err);
         this.loading = false;
       }
-      }, () => {
-        console.log('Log from doc-view-rx, reached complete block');
-       this.loading = false;
     });
+
   }
 
 }

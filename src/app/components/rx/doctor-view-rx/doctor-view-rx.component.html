@@ -1,19 +1,10 @@
 Doctor-view-rx WIP
-To do:
-- 1. Search for the patient first, handle errors from there.
-  - patient search by ID & firstname/birthday (show list if more than one)
-  -- PATIENT SEARCH should be its own component; one is created in components/shared.
-<br> <br> <br> <br> < br>
-
 
 <h3>Patient Prescriptions</h3>
-<p>
-  To view prescriptions, please input the patient ID number below.
-</p>
 
 <!-- Make this the patient-search component -->
-  <input type="number" [(ngModel)]="this.patientId" (keydown.enter)="searchRx()" />
-  <button mat-raised-button color="primary" (click)="searchRx()">Search</button>
+
+<app-select-patient></app-select-patient>
 
 <!-- patient search above... Or just add that search thing into patient Service -->
 
@@ -24,4 +15,10 @@ To do:
 <app-rx-table *ngIf="!loading && success"></app-rx-table>
 <div id="error-message"></div>
 
-<app-archive-table *ngIf="!loading && success"></app-archive-table>
+<div *ngIf="!loading && success">
+  <span class="clickable-text" (click)="showArchive()"> Show Patient's Prescription Archive </span>
+  
+  <app-loading *ngIf="loadingArchive"></app-loading>
+  <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
+  <div id="error-archive-message"></div>
+</div>
