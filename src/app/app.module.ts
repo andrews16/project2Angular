@@ -25,10 +25,6 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule } fr
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TestingComponent } from './testing/testing.component';
-import { AuthService } from './services/auth.service';
-
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
   declarations: [
