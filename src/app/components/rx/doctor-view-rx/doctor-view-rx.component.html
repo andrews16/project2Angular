@@ -8,17 +8,26 @@ Doctor-view-rx WIP
 
 <!-- patient search above... Or just add that search thing into patient Service -->
 
-<div *ngIf="loading">
+<div class="loading" *ngIf="loading">
+  <app-loading></app-loading>
+</div> 
+
+<div id="error-message"></div>
+<app-rx-table *ngIf="!loading && showRxTable"></app-rx-table>
+
+<div *ngIf="!loading && currentPatient">
+  <span class="clickable-text" *ngIf="!this.showArchive" (click)="getArchive()"> Show {{ currentPatient.getFullName()}}'s Prescription Archive </span>
+  <span class="clickable-text" *ngIf="this.showArchive" (click)="hideArchive()"> Hide {{ this.currentPatient.getFullName()}}'s Prescription Archive </span>
+
+ <div class="loading" *ngIf="loadingArchive">
   <app-loading></app-loading>
 </div>
 
-<app-rx-table *ngIf="!loading && success"></app-rx-table>
-<div id="error-message"></div>
-
-<div *ngIf="!loading && success">
-  <span class="clickable-text" (click)="showArchive()"> Show Patient's Prescription Archive </span>
-  
-  <app-loading *ngIf="loadingArchive"></app-loading>
   <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
   <div id="error-archive-message"></div>
+
+
 </div>
+ 
+<hr>
+<app-rx-search></app-rx-search>

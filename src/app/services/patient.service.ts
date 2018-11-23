@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Patient } from '../models/patient';
 import { GlobalsService } from './globals.service';
 import { HttpClient } from '@angular/common/http';
-import { JSONP_ERR_WRONG_METHOD } from '@angular/common/http/src/jsonp';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -34,7 +33,10 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
       });
   }
 
-  nextPatient(patient: Patient) {
+  nextPatient(data: Patient) {
+    // Data must be converted like this in order to pass along the getFullName() method.
+    const patient = new Patient(data.id, data.username, data.firstName,
+      data.lastName, data.userRole, data.patientId, data.doctorId, data.birthday);
     this.$patient.next(patient);
     this.currentPatient = patient;
   }
