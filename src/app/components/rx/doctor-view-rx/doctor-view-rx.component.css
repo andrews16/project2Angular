@@ -1,0 +1,12 @@
+.clickable-text {
+    color: rgb(104, 104, 146);
+    text-decoration: underline;
+}
+.clickable-text:hover{
+    background: lavender;
+}
+
+.loading {
+    text-align:center;
+    width: 100%;
+}

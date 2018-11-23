@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
 import { RxService } from 'src/app/services/rx.service';
 import { PatientService } from 'src/app/services/patient.service';
-import { isNumber } from 'util';
 
 @Component({
   selector: 'app-rx',

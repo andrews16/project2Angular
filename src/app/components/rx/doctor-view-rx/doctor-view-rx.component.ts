@@ -13,26 +13,30 @@ import { PatientService } from 'src/app/services/patient.service';
 export class DoctorViewRxComponent implements OnInit, OnDestroy {
 
   loading: boolean;
-  success: boolean;
+  showArchive: boolean;
+  showRxTable: boolean;
 
   currentPatientSub: Subscription;
   currentPatient: Patient;
 
-  showArchive = false;
   loadingArchive = false;
 
   @Input() id: number;
 
   constructor(private rxService: RxService,
-     private patientComm: PatientService) { }
+     private patientService: PatientService) { }
 
   ngOnInit() {
-    this.currentPatientSub = this.patientComm.$patient.subscribe((data) => {
-      this.currentPatient = <Patient> data;
-      console.log(data);
+    this.currentPatientSub = this.patientService.$patient.subscribe((data) => {
+      this.currentPatient = data;
       this.getRxList(this.currentPatient);
     });
 
+    // If the pat. service has a patient, push it out to this component so
+    // the subscription function runs.
+    if (this.patientService.currentPatient !== undefined) {
+      this.patientService.nextPatient(this.patientService.currentPatient);
+    }
   }
 
   // On destroy, clear the patient info
@@ -47,16 +51,16 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
     const errorBox = document.getElementById('error-message');
     this.rxService.getList(payload).subscribe(
       (data) => {
-        console.log('doctor-view-rx getlist');
-        console.log(data);
+        // Pass the data to the other components, clear the error box,
+        // stop loading, and show the table.
       this.rxService.nextRxList(data);
       errorBox.innerText = '';
-      this.success = true;
+      this.showRxTable = true;
       this.loading = false;
       },
       (err) => {
         if ( err.status % 399 < 100 ) {
-          this.success = false;
+          this.showRxTable = false;
           errorBox.innerText = `No prescriptions found!`;
           this.loading = false;
         } else {
@@ -66,29 +70,28 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
       });
   }
 
-  getArchive(payload: Patient) {
-    this.loading = true;
+  getArchive() {
+    this.loadingArchive = true;
     const errorBox = document.getElementById('error-archive-message');
-    this.rxService.getArchive(payload).subscribe(
+    this.rxService.getArchive(this.currentPatient).subscribe(
       (data) => {
-        if (data[0] === null) {
-          errorBox.innerText = 'No archive!';
+        if ( data.length === 0 ) {
+          this.showArchive = false;
+          errorBox.innerText = `No prescription history found!`;
+        } else {
+          this.rxService.nextRxList(data);
+          errorBox.innerText = '';
+          this.showArchive = true;
         }
-        this.rxService.nextRxList(data);
-        errorBox.innerText = '';
-        this.showArchive = true;
+        this.loadingArchive = false;
       },
       (err) => {
-      if ( err.status % 399 < 100 ) {
-        this.success = false;
-        errorBox.innerText = `No prescriptions found!`;
-        this.loading = false;
-      } else {
         errorBox.innerHTML = 'Error! ' +  err.status;
-        this.loading = false;
-      }
+        this.loadingArchive = false;
     });
 
   }
-
+  hideArchive() {
+    this.showArchive = false;
+  }
 }

@@ -1,0 +1,83 @@
+<h4> Prescriptions </h4> 
+
+<h6>Search for Prescription information</h6>
+<input type="text" placeholder="Input Drug Name" 
+[(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
+<button mat-raised-button (click)="getRxByName(input)" >Search </button>
+
+<div *ngIf="spellingSuggestions">
+  <div id="spelling-suggestions"></div>
+  <ul id="suggestion-list">
+    <li *ngFor="let drug of suggestions">
+      <button mat-stroked-button class="drug-spelling" (click)="getRxBySuggestion(drug)"> {{drug}} </button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="loading">
+    <app-loading></app-loading>
+  </div> 
+
+<div id="search-results" *ngIf="interactions">
+  <mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <div class="result-box" *ngIf="success">
+      <div class="results-title">Results for {{searchTerm}}</div>
+      <ng-container *ngFor="let concept of drugProperties">
+        <mat-card *ngIf="concept.conceptProperties">
+          <div class="drug-concept">
+            <div class="drug-concept-title">
+              {{concept.tty | rxConcept}}:
+            </div>
+            <div class="drug-concept-property">
+              {{concept.conceptProperties[0].name}} 
+            </div>
+          </div>
+          </mat-card>
+        </ng-container>
+    </div>
+  </mat-grid-tile>
+  <!-- Show interactions by ingredient (drugs may have more than one)-->
+  <mat-grid-tile>
+    <div class="result-box" *ngIf="interactions && interactions !== null">
+      <div class="results-title">Interaction Results</div>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let type of interactions.interactionTypeGroup[0].interactionType">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{type.interactionPair[0].interactionConcept[0].minConceptItem.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Interacting Ingredient
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      
+          <ul class="interaction-items">
+            <li *ngFor="let item of type.interactionPair">
+              <a href="{{item.interactionConcept[1].sourceConceptItem.url}}" target="_blank">
+                {{ item.interactionConcept[1].minConceptItem.name }}
+              </a>
+            </li>
+          </ul>
+          
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<div *ngIf="patient === undefined || patient === null">
+  If you would like prescribe this prescription, please select a patient first.
+</div>
+
+<div *ngIf="success && patient && patient.id">
+  Prescribe {{searchTerm}} to {{patient.getFullName()}}:
+  
+  <input type="text" placeholder="dose" [(ngModel)]="rx.dose" />
+  <input type="text" placeholder="frequency" [(ngModel)]="rx.frequency" />
+  
+<button mat-raised-button>Add Prescription</button>
+
+</div>

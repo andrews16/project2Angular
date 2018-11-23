@@ -21,10 +21,14 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
 import { RxTableComponent } from './components/rx/rx-table/rx-table.component';
 import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatDialogModule, MatTreeModule, MatExpansionModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TestingComponent } from './testing/testing.component';
+import { SearchComponent } from './components/rx/search/search.component';
+import { RxConceptPipe } from './pipes/rx-concept.pipe';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,10 @@ import { TestingComponent } from './testing/testing.component';
     ArchiveTableComponent,
     DoctorViewRxComponent,
     NavComponent,
-    TestingComponent
+    TestingComponent,
+    SearchComponent,
+    RxConceptPipe,
+    DashboardComponent
   ],
   imports: [
     AppRoutingModule,
@@ -54,15 +61,18 @@ import { TestingComponent } from './testing/testing.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    LayoutModule,
+    MatCardModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
-    // AuthService,
-    // { provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // }
   ],
   bootstrap: [AppComponent]
 })
