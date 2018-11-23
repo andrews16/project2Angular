@@ -14,14 +14,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectPatientComponent } from './components/shared/select-patient/select-patient.component';
 import { PatientRxComponent } from './components/rx/patient-rx/patient-rx.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { RxTableComponent } from './components/rx/rx-table/rx-table.component';
 import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatDialogModule, MatTreeModule, MatExpansionModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule,
+  MatSortModule, MatButtonModule, MatDialogModule,
+ MatExpansionModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TestingComponent } from './testing/testing.component';
@@ -69,7 +71,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatMenuModule,
     MatIconModule,
     LayoutModule,
-    MatCardModule
+    MatCardModule,
+    NgbModalModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [

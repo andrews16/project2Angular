@@ -31,12 +31,15 @@ export class SelectPatientComponent implements OnInit {
 
   searchPatient() {
     const patient = new Patient();
-    patient.id = this.id ? this.id : null;
-    patient.lastName = this.lastName;
-    patient.birthday = this.birthday;
+    // Clears out current patient so no information is confused.
+    this.patientService.currentPatient = patient;
+    if (this.id) {
+      patient.id = this.id;
+    }
+      patient.lastName = this.lastName;
+      patient.birthday = this.birthday;
     const errorBox = document.getElementById('patient-error-message');
     this.patientService.getPatient(patient).subscribe( (data) => {
-      console.log(data);
       if (data.length > 1) {
         this.multipleResults = true;
         errorBox.innerText = '';
@@ -51,8 +54,6 @@ export class SelectPatientComponent implements OnInit {
       }
     }, (err) => {
       if ( err.status % 399 < 100 ) {
-      console.log('select-patient-ts');
-      console.log(err);
       errorBox.innerText = 'Error! ' + err.status;
       } else {
         errorBox.innerText = 'Unresolved server error! ' + err.status;
