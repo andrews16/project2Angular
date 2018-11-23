@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, Subscription } from 'rxjs';
 import { Rx } from 'src/app/models/rx';
 import { OnInit, OnDestroy } from '@angular/core';
-import { RxCommunicationService } from 'src/app/services/rx-communication.service';
+import { RxService } from 'src/app/services/rx.service';
 
 // TODO: Replace this with your own data model type
 // export interface RxTableItem {
@@ -36,11 +36,12 @@ export class RxTableDataSource extends DataSource<Rx> implements OnInit, OnDestr
   data: Rx[];
   listSubscription: Subscription;
 
-  constructor(private sort: MatSort, private rxComm: RxCommunicationService) {
+  constructor(private sort: MatSort, private rxService: RxService) {
     super();
-    console.log('rx-table-datasource');
-    console.log(this.rxComm.currentRxList);
-    this.data = this.rxComm.currentRxList;
+    this.data = this.rxService.currentRxList;
+    this.listSubscription = rxService.$rxList.subscribe( (data) => {
+      this.data = data;
+      });
   }
 
   ngOnInit() {

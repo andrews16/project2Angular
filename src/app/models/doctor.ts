@@ -4,4 +4,5 @@ export class Doctor extends User {
     getFullName() {
         return 'Dr. ${firstName} ${lastName}';
     }
+
 }
