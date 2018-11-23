@@ -21,10 +21,14 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
 import { RxTableComponent } from './components/rx/rx-table/rx-table.component';
 import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
+import { TestingComponent } from './testing/testing.component';
+import { AuthService } from './services/auth.service';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import { NavComponent } from './components/nav/nav.component';
     RxTableComponent,
     ArchiveTableComponent,
     DoctorViewRxComponent,
-    NavComponent
+    NavComponent,
+    TestingComponent
   ],
   imports: [
     AppRoutingModule,
@@ -53,9 +58,16 @@ import { NavComponent } from './components/nav/nav.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [],
+  providers: [
+    // AuthService,
+    // { provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

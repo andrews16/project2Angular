@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RxService } from 'src/app/services/rx.service';
 import { Patient } from 'src/app/models/patient';
-import { RxCommunicationService } from 'src/app/services/rx-communication.service';
-import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -19,7 +17,7 @@ export class PatientRxComponent implements OnInit {
 
   @Input() id: number;
 
-  constructor(private rxService: RxService, private rxComm: RxCommunicationService) { }
+  constructor(private rxService: RxService) { }
 
   ngOnInit() {
   }
@@ -37,7 +35,7 @@ export class PatientRxComponent implements OnInit {
 
     this.rxService.getList(payload).subscribe(
       (data) => {
-      this.rxComm.nextRxList(data);
+      this.rxService.nextRxList(data);
       errorBox.innerText = '';
       this.success = true;
       },

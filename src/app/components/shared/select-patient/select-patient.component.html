@@ -1,9 +1,24 @@
-Choose a patient
-<input type="text" [(ngModel)]="patLastName" placeholder="Patient Last Name" />
+<h5>Select a patient : </h5>
+<input type="text" [(ngModel)]="this.lastName" placeholder="Patient Last Name" (keydown.enter)="searchPatient()" />
+<input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyy-mm-dd" (keydown.enter)="searchPatient()" />
 
-<br> 
 OR 
+
+<input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient()" />
 <br>
-<input type="number" [(ngModel)]="patId" placeholder="Patient ID" />
-<br>
-<button (click)="selectPatient()">Select Patient</button>
+<button mat-raised-button (click)="searchPatient()">Select Patient</button>
+
+
+<div id="patient-error-message"></div>
+
+<div *ngIf="multipleResults">
+    More than one patient matched your request. Please select one: <br>
+    <div *ngFor="let patient of pList; let i = index">
+       <button mat-stroked-button class="select-patient-button" (click)="searchPatient(i)" > 
+           {{ patient.firstName }} {{ patient.lastName }}, Birthday : {{patient.birthday}}
+       </button>
+    </div>
+
+  <!-- TODO -->
+
+</div>
