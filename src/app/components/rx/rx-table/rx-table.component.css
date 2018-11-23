@@ -3,11 +3,6 @@
   width: 15em;
 }
 table {
-  border: 1px solid green;
   border-collapse: collapse;
   width:100%;
-}
-
-table td {
-  border: 1px solid green;
 }

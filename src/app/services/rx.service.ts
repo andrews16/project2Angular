@@ -30,7 +30,6 @@ export class RxService {
 
   nextRxList(rxList: Rx[]) {
     if (!rxList) {
-      console.log('Rx-comm-service no rxlist to push!');
     }
     this.$rxList.next(rxList);
     this.currentRxList = rxList;
@@ -41,7 +40,6 @@ export class RxService {
     this.currentRxArchive = rxArchive;
   }
 
-
     // Allows for optional input of (null, id#)
   getList(patient: Patient, id?: number) {
     if (!patient && id) {
@@ -50,7 +48,6 @@ export class RxService {
     }
     const url = `${this.url}${patient.id}`;
     const payload = JSON.stringify(patient);
-    console.log('rx service ' + payload);
     return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
@@ -64,7 +61,6 @@ export class RxService {
     }
     const url = `${this.url}archive/${patient.id}`;
     const payload = JSON.stringify(patient);
-    console.log('rx service ' + payload);
     return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}

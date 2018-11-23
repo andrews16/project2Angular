@@ -2,10 +2,8 @@
 
     <h5>Select a patient : </h5>
     <input type="text" [(ngModel)]="this.lastName" placeholder="Patient Last Name" (keydown.enter)="searchPatient()" />
-    <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyy-mm-dd" (keydown.enter)="searchPatient()" />
-    
-    OR 
-
+    <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
+   OR
     <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient(0)" />
     <br>
     <button mat-raised-button (click)="searchPatient()">Select Patient</button>
