@@ -15,18 +15,35 @@
   </h6>
 <br> <br> <br> <br> 
 
- -->
+-->
 
- <div id="container">
+<div id="container">
   <app-nav></app-nav>
-
+  
   <div id="content">
+    <mat-card>
     <router-outlet></router-outlet>
+
+    We could use an adaptation of this dashboard for the main portal! <br>
+    <button (click)="clicked = !clicked">Click here to see it</button>
+    <div *ngIf="clicked" style="background: rgba(231, 246, 255, 0.219)" >
+      
+      <br>
+      It's almost exactly what we'd drawn out.<br>
+      I generated the component in the command line: <br>
+      "ng g @angular/material:dashboard components/dashboard" <br>
+      Material Design (and probably bootstrap, too) have a couple modules that you can get pre-built this way. <br>
+      This took me literally no time to figure out, just wanted to run it by ya.
+      <app-dashboard></app-dashboard>
+    </div>
+
+      
+      
+    <app-rx></app-rx> 
+
+
+
+
+    </mat-card>
   </div>
 </div>
-
-
-
- <app-rx></app-rx> 
-
-

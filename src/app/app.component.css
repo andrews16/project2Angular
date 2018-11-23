@@ -4,3 +4,8 @@
 .clickable-text:hover{
     background: lavender;
 }
+
+
+#content{
+    margin:20px;
+}
