@@ -9,42 +9,41 @@
 <div *ngIf="rx && rx.name && patient && patient.id && !submitted">
 
   <h3>Add Prescription</h3>
-  <form (ngSubmit)="onSubmit()" #rxForm="ngForm">
-    <div class="form-group">
+
+    <form (ngSubmit)="onSubmit()" #rxForm="ngForm">
+      <div class="form-group">
         <div class="form-group">
             <label for="patient">Patient Name : </label>
             <input type="text" class="form-control" id="patient"
                     placeholder="{{patient.getFullName()}}" disabled>
         </div>
-
-      <label for="name">Prescription Name : </label>
-      <input type="text" class="form-control" id="name"
-              required
-              [(ngModel)]="rx.name" name="name"
-              #name="ngModel" disabled>
-    </div>
+        
+        <label for="name">Prescription Name : </label>
+        <input type="text" class="form-control" id="name"
+        required
+        [(ngModel)]="rx.name" name="name"
+        #name="ngModel" disabled>
+      </div>
 
     <div class="form-group">
       <label for="dose">Dose  :</label>
       <input type="text" class="form-control" id="dose"
-              [(ngModel)]="rx.dose" name="dose">
+      [(ngModel)]="rx.dose" name="dose">
     </div>
-    <div [hidden]="!checked || rxdose" class="alert alert-danger">
-        Dosage information is required
+    <div [hidden]="!checked || rx.dose" class="alert alert-danger">
+      Dosage information is required
       </div>
 
-    <div class="form-group">
-      <label for="frequency">Instructions/Frequency : </label>
-      <input type="text" class="form-control" id="frequency"
+      <div class="form-group">
+        <label for="frequency">Instructions/Frequency : </label>
+        <input type="text" class="form-control" id="frequency"
       [(ngModel)]="rx.frequency" name="frequency">
     </div>       
       <div [hidden]="!checked || rx.frequency" class="alert alert-danger">
         Instructions / Frequency Requeired
       </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!rxForm.form.valid">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-success" [disabled]="!rxForm.form.valid">Submit</button>
+    </form>
 
-
-
-</div>
+  </div>

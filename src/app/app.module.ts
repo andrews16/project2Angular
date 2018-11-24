@@ -32,6 +32,7 @@ import { RxConceptPipe } from './pipes/rx-concept.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
+import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx-component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
     SearchComponent,
     RxConceptPipe,
     DashboardComponent,
-    NewRxComponent
+    NewRxComponent,
+    SubmittedNewRxComponent
   ],
   imports: [
     AppRoutingModule,
@@ -75,10 +77,14 @@ import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
     MatIconModule,
     LayoutModule,
     MatCardModule,
+    NgbModalModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SubmittedNewRxComponent
+  ]
 })
 export class AppModule { }
