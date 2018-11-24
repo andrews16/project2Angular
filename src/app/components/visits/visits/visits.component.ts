@@ -13,6 +13,15 @@ import { Patient } from 'src/app/models/patient';
 })
 export class VisitsComponent implements OnInit {
 
+  id : number;
+    patientId : number;
+    doctorId : number;
+    date : string;
+    bloodpressure : string;
+    weight : number;
+    doctorDescription : string;
+    PatientNote : string;
+
   currentPatient: Patient;
   currentPatientSub: Subscription;
 
@@ -29,6 +38,20 @@ export class VisitsComponent implements OnInit {
     if (this.patientService.currentPatient !== undefined) {
       this.patientService.nextPatient(this.patientService.currentPatient);
     }
+  }
+
+  submitVisit() {
+    const visit = new Visit();
+    visit.date = this.date;
+    visit.weight = this.weight;
+    visit.patientId = this.patientId;
+    visit.doctorId = this.doctorId;
+    visit.bloodpressure = this.bloodpressure;
+    visit.doctorDescription = this.doctorDescription;
+    visit.PatientNote = this.doctorDescription;
+    this.visitService.addVisit(visit).subscribe( (data) => {
+      this.visitService.addVisit(data);
+    })
   }
 
 }

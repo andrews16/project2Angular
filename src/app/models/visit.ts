@@ -1,7 +1,7 @@
 export class Visit {
 
     id : number;
-    padientId : number;
+    patientId : number;
     doctorId : number;
     date : string;
     bloodpressure : string;
