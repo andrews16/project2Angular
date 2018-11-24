@@ -3,7 +3,8 @@
 <h6>Search for Prescription information</h6>
 <input type="text" placeholder="Input Drug Name" 
 [(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
-<button mat-raised-button (click)="getRxByName(input)" >Search </button>
+<br> 
+<button mat-raised-button (click)="getRxByName(input)" >Search Prescriptions</button>
 
 <div *ngIf="spellingSuggestions">
   <div id="spelling-suggestions"></div>
@@ -67,6 +68,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
+<hr>
 
 <div *ngIf="patient === undefined || patient === null">
   If you would like prescribe this prescription, please select a patient first.
@@ -78,6 +80,7 @@
   <input type="text" placeholder="dose" [(ngModel)]="rx.dose" />
   <input type="text" placeholder="frequency" [(ngModel)]="rx.frequency" />
   
+  <br>
 <button mat-raised-button>Add Prescription</button>
 
 </div>

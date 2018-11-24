@@ -31,8 +31,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private patientService: PatientService) {
     this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
-      console.log('rx search');
-      console.log(data);
     this.patient = data;
     });
 
