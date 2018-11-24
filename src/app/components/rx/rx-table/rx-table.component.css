@@ -2,3 +2,7 @@
   padding: 0 0.5em;
   width: 15em;
 }
+table {
+  border-collapse: collapse;
+  width:100%;
+}
