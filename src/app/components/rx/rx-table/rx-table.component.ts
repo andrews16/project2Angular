@@ -30,15 +30,12 @@ export class RxTableComponent implements OnInit {
     this.patient = this.patientService.currentPatient;
   }
 
-
   candidate(rx: any) {
-    //this.removalCandidate = rx;
-    console.log(rx);
-    console.log('ONE (rx-table)');
+    this.removalCandidate = rx;
   }
+
   // Modal Methods :
   open(content) {
-    console.log('TWO');
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -47,15 +44,11 @@ export class RxTableComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else if (reason === 'remove') {
+    console.log('rx-table');
+    console.log(reason);
+   if (reason === 'remove') {
       this.rxService.remove(this.removalCandidate.id);
       return 'done';
-    } else {
-      return  `with: ${reason}`;
     }
   }
 

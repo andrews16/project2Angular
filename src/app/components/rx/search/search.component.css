@@ -2,8 +2,16 @@
     width:20em;
 }
 
+
+.suggestion {
+    padding:0;
+    margin: 5px;
+
+}
 ul, li {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 .results-title{
     color: rgb(104, 104, 146);
@@ -34,4 +42,8 @@ ul, li {
     color: rgb(104, 104, 146);
     font-weight: 500;
     padding-left:2em;
+}
+
+.rx-search {
+    min-width: 50%;
 }

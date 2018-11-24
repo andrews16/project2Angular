@@ -5,6 +5,7 @@ import { Patient } from 'src/app/models/patient';
 import { Subscription } from 'rxjs';
 import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { Rx } from 'src/app/models/rx';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rx-search',
@@ -20,7 +21,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   currentPatientSub: Subscription;
   patient: Patient;
 
-  rx = new Rx(undefined, undefined, undefined, undefined, undefined, undefined, undefined, );
+  rx = new Rx();
+  rxForm: FormGroup;
 
   loading = false;
   success = false;
@@ -31,12 +33,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private patientService: PatientService) {
     this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
-    this.patient = data;
+      this.patient = data;
+      this.resetForm();
     });
 
   }
 
   ngOnInit() {
+    this.createForm();
   }
 
 
@@ -46,6 +50,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.currentPatientSub.unsubscribe();
     }
   }
+
 
 // 1. Try to get the results
 // https://rxnav.nlm.nih.gov/REST/Prescribe/rxcui.json?name=lipitor
@@ -57,7 +62,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 // Gets the RXCUI (API Drug ID by name)
   getRxByName(search: string) {
     // Reset current rx data and set the showing/hiding features properly.
-    this.rx = new Rx(undefined, undefined, undefined, undefined, undefined, undefined, undefined, );
+    this.rx = new Rx();
     this.interactions = null;
     this.success = false;
     this.searchTerm = search;
@@ -124,6 +129,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   manageProperties(data: any) {
     this.drugProperties = data.allRelatedGroup.conceptGroup;
+    this.rx.name = this.searchTerm;
+    this.resetForm();
   }
 
   // Gets interactions for the specific drug and saves it as interactions object
@@ -135,5 +142,40 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.loading = false;
     });
   }
+  ///////////////////////////////
+ // Section for adding new Rx //
+//////////////////////////////
+
+  createForm() {
+    this.rxForm = new FormGroup({
+      dose: new FormControl('', [Validators.required]),
+      frequency: new FormControl('', [Validators.required]),
+      patientId: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required])
+    });
+  }
+
+  resetForm() {
+    this.rxForm.reset({
+      name: this.rx.name,
+      patientId: this.patient ? this.patient.id : null
+    });
+  }
+
+   submitFunc() {
+     console.log('submit');
+     console.log(this.rxForm);
+      // this.someItemService.submitForm(this.someForm.value)
+      //             .subscribe(
+      //                 (data) => {
+      //                    console.log('Form submitted successfully');                           
+      //                 },
+      //                 (error: HttpErrorResponse) => {
+      //                     console.log(error);
+      //                 }
+      //             );
+      //     }
+   }
+  
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select-patient',
@@ -20,11 +21,20 @@ export class SelectPatientComponent implements OnInit {
   multipleResults: boolean;
 
   pList: Patient[];
+  currentPatient: Patient;
+  currentPatientSub: Subscription;
 
   ngOnInit() {
     // Load in a list of the doctor's patient's
     // Use bootstrap's typeahead
    //  https://ng-bootstrap.github.io/#/components/typeahead/examples
+    this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
+      this.currentPatient = data;
+    });
+
+    if (this.patientService.currentPatient && this.patientService.currentPatient.id ) {
+      this.currentPatient = this.patientService.currentPatient;
+    }
 
 
   }

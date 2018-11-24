@@ -1,8 +1,6 @@
-Doctor-view-rx WIP
+<h1>Prescriptions</h1>
 
-<h3>Patient Prescriptions</h3>
-
-<!-- Make this the patient-search component -->
+<!-- Patient-search component -->
 
 <app-select-patient></app-select-patient>
 
@@ -12,9 +10,11 @@ Doctor-view-rx WIP
   <app-loading></app-loading>
 </div> 
 
+<!-- Show the Patient's RXs -->
 <div id="error-message"></div>
 <app-rx-table *ngIf="!loading && showRxTable"></app-rx-table>
 
+<!-- Show/hide Rx Archive-->
 <div *ngIf="!loading && currentPatient">
   <span class="clickable-text" *ngIf="!this.showArchive" (click)="getArchive()"> Show {{ currentPatient.getFullName()}}'s Prescription Archive </span>
   <span class="clickable-text" *ngIf="this.showArchive" (click)="hideArchive()"> Hide {{ this.currentPatient.getFullName()}}'s Prescription Archive </span>
@@ -30,4 +30,6 @@ Doctor-view-rx WIP
 </div>
  
 <hr>
+
+<!-- Find/add new prescriptions -->
 <app-rx-search></app-rx-search>

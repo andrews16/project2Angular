@@ -1,16 +1,20 @@
 <h4> Prescriptions </h4> 
 
 <h6>Search for Prescription information</h6>
-<input type="text" placeholder="Input Drug Name" 
-[(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
-<br> 
-<button mat-raised-button (click)="getRxByName(input)" >Search Prescriptions</button>
+<div class="search-bar-box">
+  <input type="text" id="rx-search" placeholder="Input Drug Name" 
+  [(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
+  <br> 
+  <div class="search-button-holder">
+    <button mat-raised-button (click)="getRxByName(input)" >Search Prescriptions</button>
+  </div>
+</div>
 
 <div *ngIf="spellingSuggestions">
   <div id="spelling-suggestions"></div>
   <ul id="suggestion-list">
     <li *ngFor="let drug of suggestions">
-      <button mat-stroked-button class="drug-spelling" (click)="getRxBySuggestion(drug)"> {{drug}} </button>
+      <button class="suggestion" mat-stroked-button class="drug-spelling" (click)="getRxBySuggestion(drug)"> {{drug}} </button>
     </li>
   </ul>
 </div>
@@ -74,13 +78,29 @@
   If you would like prescribe this prescription, please select a patient first.
 </div>
 
-<div *ngIf="success && patient && patient.id">
-  Prescribe {{searchTerm}} to {{patient.getFullName()}}:
-  
-  <input type="text" placeholder="dose" [(ngModel)]="rx.dose" />
-  <input type="text" placeholder="frequency" [(ngModel)]="rx.frequency" />
-  
-  <br>
-<button mat-raised-button>Add Prescription</button>
+  <div *ngIf="success && patient && patient.id">
+    Prescribe {{searchTerm}} to {{patient.getFullName()}}:
+
+    <form [formGroup]="rx" (ngSubmit)="submitFunc()">
+  <!-- 
+      <input type="text" placeholder="dose" [(ngModel)]="rx.dose" required />
+      <input type="text" placeholder="frequency" [(ngModel)]="rx.frequency" required /> -->
+      Dose : 
+      <label *ngIf="this.rxForm.get('dose').invalid" [ngClass] = "'error'"> Dosage information is required. </label>
+      <input type="text" class="form-control" formControlName="dose" required /> 
+      <br>
+      Frequency : 
+      <label *ngIf="this.rxForm.get('frequency').invalid" [ngClass] = "'error'"> Dosage information is required. </label>
+      <input type="text" class="form-control" formControlName="frequency" required />
+      
+      <br>
+      <button type="submit" [disabled]="!rx.valid" class="btn btn-success"> Submit </button>
+
+      <!-- <button mat-raised-button type="submit">Add Prescription</button> -->
+    </form>
+    
+
+  </div>
+
 
 </div>
