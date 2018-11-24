@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/models/patient';
+import { Subscription } from 'rxjs';
+import { parseTimelineCommand } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-select-patient',
@@ -20,19 +22,42 @@ export class SelectPatientComponent implements OnInit {
   multipleResults: boolean;
 
   pList: Patient[];
+  currentPatient: Patient;
+  currentPatientSub: Subscription;
 
   ngOnInit() {
     // Load in a list of the doctor's patient's
     // Use bootstrap's typeahead
    //  https://ng-bootstrap.github.io/#/components/typeahead/examples
+    this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
+      this.currentPatient = data;
+      if (this.currentPatient.firstName) {
+        this.id = this.currentPatient.id;
+        this.lastName = this.currentPatient.lastName;
+        this.birthday = this.currentPatient.birthday;
+      }
+    });
 
+    if (this.patientService.currentPatient && this.patientService.currentPatient.id ) {
+      this.currentPatient = this.patientService.currentPatient;
+    }
+  }
 
+  reset() {
+    const patient = new Patient();
+    patient.id = 0;
+    this.patientService.nextPatient(patient);
+    this.id = null;
+    this.lastName = '';
+    this.birthday = '';
   }
 
   searchPatient() {
     const patient = new Patient();
+
     // Clears out current patient so no information is confused.
-    this.patientService.currentPatient = patient;
+    patient.id = 0;
+    this.patientService.nextPatient(patient);
     if (this.id) {
       patient.id = this.id;
     }

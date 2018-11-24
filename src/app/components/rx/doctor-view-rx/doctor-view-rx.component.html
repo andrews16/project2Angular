@@ -1,33 +1,91 @@
-Doctor-view-rx WIP
+<h1>Prescriptions</h1>
 
-<h3>Patient Prescriptions</h3>
+<!-- Patient-search component -->
 
-<!-- Make this the patient-search component -->
 
 <app-select-patient></app-select-patient>
 
-<!-- patient search above... Or just add that search thing into patient Service -->
+<mat-accordian>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        Selected Patient's Current Prescriptions
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <ng-container *ngIf="!currentPatient || !currentPatient.id ">
+      Please select a patient first.
+    </ng-container>
+    <!-- Show the Patient's RXs -->
+    <div class="loading" *ngIf="loading">
+      <app-loading></app-loading>
+    </div> 
+    <div id="error-message"></div>
+    <app-rx-table *ngIf="!loading && showRxTable"></app-rx-table>
+    
+  </mat-expansion-panel>
 
-<div class="loading" *ngIf="loading">
-  <app-loading></app-loading>
-</div> 
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Selected Patient's Past Prescriptions
+          </mat-panel-title>
+    </mat-expansion-panel-header>
 
-<div id="error-message"></div>
-<app-rx-table *ngIf="!loading && showRxTable"></app-rx-table>
+    <ng-container *ngIf="!currentPatient || !currentPatient.id ">
+        Please select a patient first.
+      </ng-container>
+      <!-- Show the Patient's RXs -->
+      
+      <div class="loading" *ngIf="loadingArchive">
+        <app-loading></app-loading>
+      </div> 
+      <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
+      <div id="error-archive-message"></div>
+    
+      
+      <!-- Show/hide Rx Archive-->
+    <!-- <ng-container *ngIf="!currentPatient || !currentPatient.id ">
+      Please select a patient first.
+    </ng-container>
+      <ng-template matExpansionPanelContent>
+        <div class="loading" *ngIf="loadingArchive">
+          <app-loading></app-loading>
+        </div>
+        Some deferred content
+      </ng-template>
 
-<div *ngIf="!loading && currentPatient">
-  <span class="clickable-text" *ngIf="!this.showArchive" (click)="getArchive()"> Show {{ currentPatient.getFullName()}}'s Prescription Archive </span>
-  <span class="clickable-text" *ngIf="this.showArchive" (click)="hideArchive()"> Hide {{ this.currentPatient.getFullName()}}'s Prescription Archive </span>
-
- <div class="loading" *ngIf="loadingArchive">
-  <app-loading></app-loading>
-</div>
-
-  <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
-  <div id="error-archive-message"></div>
+    <div *ngIf="!loading && currentPatient">
+        <span class="clickable-text" *ngIf="!this.showArchive" (click)="getArchive()"> Show {{ currentPatient.getFullName()}}'s Prescription Archive </span>
+        <span class="clickable-text" *ngIf="this.showArchive" (click)="hideArchive()"> Hide {{ this.currentPatient.getFullName()}}'s Prescription Archive </span>
+      
+      
+        <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
+    </div> -->
 
 
-</div>
- 
-<hr>
-<app-rx-search></app-rx-search>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        Prescription Finder and Interactions
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <!-- Find prescriptions -->
+    <app-rx-search></app-rx-search>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        Add Prescription to Patient
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <!-- Add new Rx-->
+    <app-new-rx></app-new-rx>
+  </mat-expansion-panel>
+    
+</mat-accordian> 
+
+

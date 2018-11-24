@@ -30,6 +30,7 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
     this.currentPatientSub = this.patientService.$patient.subscribe((data) => {
       this.currentPatient = data;
       this.getRxList(this.currentPatient);
+      this.getArchive();
     });
 
     // If the pat. service has a patient, push it out to this component so
@@ -46,52 +47,68 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
     }
   }
 
-  getRxList(payload: Patient) {
-    this.loading = true;
-    const errorBox = document.getElementById('error-message');
-    this.rxService.getList(payload).subscribe(
+  getRxList(patient: Patient) {
+    if (patient.id) {
+      this.loading = true;
+      const errorBox = document.getElementById('error-message');
+      this.rxService.getList(patient).subscribe(
       (data) => {
         // Pass the data to the other components, clear the error box,
         // stop loading, and show the table.
-      this.rxService.nextRxList(data);
-      errorBox.innerText = '';
-      this.showRxTable = true;
-      this.loading = false;
+        if ( data.length === 0 ) {
+          this.showRxTable = false;
+          errorBox.innerText = `No prescription history found!`;
+        } else {
+          this.showRxTable = true;
+          errorBox.innerText = '';
+        }
+        this.loading = false;
+        this.rxService.nextRxList(data);
       },
       (err) => {
-        if ( err.status % 399 < 100 ) {
-          this.showRxTable = false;
-          errorBox.innerText = `No prescriptions found!`;
-          this.loading = false;
-        } else {
           errorBox.innerHTML = 'Error! ' +  err.status;
           this.loading = false;
-        }
-      });
+        });
+      }
   }
 
   getArchive() {
-    this.loadingArchive = true;
-    const errorBox = document.getElementById('error-archive-message');
-    this.rxService.getArchive(this.currentPatient).subscribe(
-      (data) => {
-        if ( data.length === 0 ) {
-          this.showArchive = false;
-          errorBox.innerText = `No prescription history found!`;
+    if (this.currentPatient.id) {
+      this.loadingArchive = true;
+      const errorBox = document.getElementById('error-archive-message');
+      this.rxService.getArchive(this.currentPatient).subscribe(
+        (data) => {
+                if ( data.length === 0 ) {
+                  this.showArchive = false;
+                  errorBox.innerText = `No prescription history found!`;
         } else {
-          this.rxService.nextRxList(data);
           errorBox.innerText = '';
           this.showArchive = true;
         }
+        // Pass the data to the other components and stop loading
         this.loadingArchive = false;
+        this.rxService.nextRxArchive(data);
       },
       (err) => {
         errorBox.innerHTML = 'Error! ' +  err.status;
-        this.loadingArchive = false;
-    });
+          this.loadingArchive = false;
+        });
+      }
+
+        //   (data) => {
+
+    //       this.rxService.nextRxList(data);
+    //       errorBox.innerText = '';
+    //       this.showArchive = true;
+    //     }
+    //     this.loadingArchive = false;
+    //   },
+    //   (err) => {
+    //     errorBox.innerHTML = 'Error! ' +  err.status;
+    //     this.loadingArchive = false;
+    //     this.showArchive = false;
+    // });
 
   }
-  hideArchive() {
-    this.showArchive = false;
-  }
+
 }

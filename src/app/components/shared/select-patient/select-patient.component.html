@@ -1,24 +1,36 @@
 <div class="patient-searchbar">
 
     <h5>Select a patient : </h5>
-    <input type="text" [(ngModel)]="this.lastName" placeholder="Patient Last Name" (keydown.enter)="searchPatient()" />
-    <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
-   OR
-    <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient(0)" />
-    <br>
-    <button mat-raised-button (click)="searchPatient()">Select Patient</button>
-    
-    
+
+    <center>
+        <div class="search-bar-box">
+            <input type="text" [(ngModel)]="this.lastName" placeholder="Patient Last Name" (keydown.enter)="searchPatient()" />
+            <input type="text" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
+        <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient(0)" />
+        <button mat-icon-button (click)="reset()">
+            <mat-icon aria-label="Reset Patient Select">clear</mat-icon>
+        </button>
+        <div class="search-button-holder">
+            <div class="show-current-patient">
+                <ng-container *ngIf="currentPatient && currentPatient.firstName">
+                    Current Patient: {{currentPatient.getFullName()}}
+                </ng-container>
+            </div>
+            <button mat-raised-button (click)="searchPatient()">Select Patient</button>
+        </div>
+    </div>
+
     <div id="patient-error-message"></div>
     
-<div *ngIf="multipleResults" class="search-error">
-    More than one patient matched your request. Please select one: <br>
-    <div *ngFor="let patient of pList; let i = index">
-        <button mat-stroked-button class="select-patient-button" (click)="selectPatient(i)" > 
-           {{ patient.firstName }} {{ patient.lastName }}, Birthday : {{patient.birthday}}
-        </button>
+    <div *ngIf="multipleResults" class="search-error">
+        More than one patient matched your request. Please select one: <br>
+        <div *ngFor="let patient of pList; let i = index">
+            <button mat-stroked-button class="select-patient-button" (click)="selectPatient(i)" > 
+                {{ patient.firstName }} {{ patient.lastName }}, Birthday : {{patient.birthday}}
+            </button>
+        </div>
     </div>
-       
-</div>
+
+    </center>
 
 </div>
