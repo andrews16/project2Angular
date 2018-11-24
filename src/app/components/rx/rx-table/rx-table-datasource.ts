@@ -16,15 +16,8 @@ import { RxService } from 'src/app/services/rx.service';
 //   //   dateEnded: string,
 //   //   dose: string,
 //   //   frequency: string,
-//   //   patientId: number
 // }
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: Rx[] = [
-  new Rx(1, 'Tylenol', '2015-06-03', null, '800mg', 'Daily', 3),
-  new Rx(4, 'Hydrocodone', '2018-04-13', null, '8mg', 'As needed with food', 3),
-  new Rx(5, 'Diphenhydramine', '2018-09-21', null, '50mg', 'Daily', 3),
-];
 
 /**
  * Data source for the RxTable view. This class should

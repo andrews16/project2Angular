@@ -34,9 +34,15 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
   }
 
   nextPatient(data: Patient) {
+    let patient;
     // Data must be converted like this in order to pass along the getFullName() method.
-    const patient = new Patient(data.id, data.username, data.firstName,
-      data.lastName, data.userRole, data.patientId, data.doctorId, data.birthday);
+    if (data && data.id) {
+      patient = new Patient(data.id, data.username, data.firstName,
+        data.lastName, data.userRole, data.id, data.doctorId, data.birthday);
+    } else {
+      patient = new Patient();
+      patient.id = 0;
+    }
     this.$patient.next(patient);
     this.currentPatient = patient;
   }

@@ -1,22 +1,22 @@
-.drug-spelling{
-    width:20em;
-}
-
 
 .suggestion {
+    display: inline-block;
+    min-width:23%;
     padding:0;
     margin: 5px;
+}
+.suggestion-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
-}
-ul, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 .results-title{
     color: rgb(104, 104, 146);
     font-weight: 600;
     font-size: 1.5em;
+    padding: 5px;
 }
 .interacting-ingredient{
     font-weight:500;
@@ -27,23 +27,32 @@ ul, li {
     height:100%;
     overflow-y: scroll;
 }
+.concept-card {
+   padding-left: 2em;
+}
 
 .drug-concept {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
     padding:0px;
 }
 .drug-concept-property {
     text-align: center;
-    flex: 1 1;
 }
 .drug-concept-title {
     color: rgb(104, 104, 146);
     font-weight: 500;
-    padding-left:2em;
+    padding-right:1em;
 }
 
-.rx-search {
-    min-width: 50%;
+.search-bar-box{
+    
+    margin: 0 auto;
+    min-width: 65%;
 }
+.search-bar-box input {
+    width:100%;
+}
+

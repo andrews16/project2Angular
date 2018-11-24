@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectPatientComponent } from './components/shared/select-patient/select-patient.component';
 import { PatientRxComponent } from './components/rx/patient-rx/patient-rx.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
@@ -31,6 +31,7 @@ import { SearchComponent } from './components/rx/search/search.component';
 import { RxConceptPipe } from './pipes/rx-concept.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     TestingComponent,
     SearchComponent,
     RxConceptPipe,
-    DashboardComponent
+    DashboardComponent,
+    NewRxComponent
   ],
   imports: [
     AppRoutingModule,
@@ -73,7 +75,6 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatIconModule,
     LayoutModule,
     MatCardModule,
-    NgbModalModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
