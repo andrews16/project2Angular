@@ -31,7 +31,7 @@ export class SelectPatientComponent implements OnInit {
    //  https://ng-bootstrap.github.io/#/components/typeahead/examples
     this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
       this.currentPatient = data;
-      if (this.currentPatient.firstName){
+      if (this.currentPatient.firstName) {
         this.id = this.currentPatient.id;
         this.lastName = this.currentPatient.lastName;
         this.birthday = this.currentPatient.birthday;

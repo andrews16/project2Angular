@@ -2,12 +2,15 @@
   If you would like prescribe this prescription, please select a patient first.
 </div>
 
-<div *ngIf="rx && rx.name && patient && patient.id">
+<div *ngIf="!rx || !rx.name">
+  To add a prescription, please select a drug from the Prescription Finder above and review information and interactions.
+</div>
+
+<div *ngIf="rx && rx.name && patient && patient.id && !submitted">
 
   <h3>Add Prescription</h3>
   <form (ngSubmit)="onSubmit()" #rxForm="ngForm">
     <div class="form-group">
-
         <div class="form-group">
             <label for="patient">Patient Name : </label>
             <input type="text" class="form-control" id="patient"
@@ -26,17 +29,18 @@
       <input type="text" class="form-control" id="dose"
               [(ngModel)]="rx.dose" name="dose">
     </div>
-    <div [hidden]="!checked || dose" class="alert alert-danger">
+    <div [hidden]="!checked || rxdose" class="alert alert-danger">
         Dosage information is required
       </div>
 
     <div class="form-group">
       <label for="frequency">Instructions/Frequency : </label>
-      
-      <div [hidden]="!checked || dose" class="alert alert-danger">
+      <input type="text" class="form-control" id="frequency"
+      [(ngModel)]="rx.frequency" name="frequency">
+    </div>       
+      <div [hidden]="!checked || rx.frequency" class="alert alert-danger">
         Instructions / Frequency Requeired
       </div>
-    </div>
 
     <button type="submit" class="btn btn-success" [disabled]="!rxForm.form.valid">Submit</button>
   </form>

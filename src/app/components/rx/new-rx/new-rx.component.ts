@@ -17,6 +17,7 @@ export class NewRxComponent implements OnInit, OnDestroy {
   rx = this.rxService.currentRx;
   rxSub: Subscription;
   checked = false;
+  submitted = false;
 
 
   constructor(private patientService: PatientService,
@@ -24,13 +25,16 @@ export class NewRxComponent implements OnInit, OnDestroy {
     this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
       this.patient = data;
       this.rx.patientId = this.patient.id;
+      this.submitted = false;
     });
 
     this.rxSub = this.rxService.$rx.subscribe( (data) => {
-    this.rx = new Rx();
-    if (this.patient && this.patient.id) {
-      this.rx.patientId = this.patient.id;
-    }
+      this.rx = new Rx();
+      this.rx.name = data.name;
+      if (this.patient && this.patient.id) {
+        this.rx.patientId = this.patient.id;
+      }
+      this.submitted = false;
     });
 
   }
@@ -57,18 +61,17 @@ export class NewRxComponent implements OnInit, OnDestroy {
     console.log('submit');
     this.checked = true;
     console.log(this.rx);
-    if (this.rx.dose && this.rx.frequency && this.rx.patientId && this.rx.name) {
-       this.rxService.add(this.rx).subscribe(
-          (data) => {
-            this.patientService.nextPatient(this.patientService.currentPatient);
-              console.log('Form submitted successfully');
-            },
-            (error: HttpErrorResponse) => {
-                  console.log(error);
-              }
-          );
-          }
+    if (this.rx.dose &&
+     this.rx.frequency &&
+     this.rx.patientId &&
+     this.rx.name) {
+       this.submitted = true;
+     this.rxService.add(this.rx).subscribe(
+      (data) => {
+        this.patientService.nextPatient(this.patientService.currentPatient);
+      });
     }
   }
+
 
 }

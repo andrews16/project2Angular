@@ -5,8 +5,7 @@
     <center>
         <div class="search-bar-box">
             <input type="text" [(ngModel)]="this.lastName" placeholder="Patient Last Name" (keydown.enter)="searchPatient()" />
-            <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
-        OR
+            <input type="text" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
         <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient(0)" />
         <button mat-icon-button (click)="reset()">
             <mat-icon aria-label="Reset Patient Select">clear</mat-icon>

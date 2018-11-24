@@ -35,11 +35,12 @@
     <div class="result-box" *ngIf="success">
       <div class="results-title">Results for {{searchTerm}}</div>
       <ng-container *ngFor="let concept of drugProperties">
-        <mat-card *ngIf="concept.conceptProperties">
+        <mat-card class="concept-card" *ngIf="concept.conceptProperties">
           <div class="drug-concept">
             <div class="drug-concept-title">
               {{concept.tty | rxConcept}}:
             </div>
+            <div class="drug-concept-spacer"></div>
             <div class="drug-concept-property">
               {{concept.conceptProperties[0].name}} 
             </div>
@@ -65,13 +66,11 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           
-          <ul class="interaction-items">
-            <li *ngFor="let item of type.interactionPair">
+          <div *ngFor="let item of type.interactionPair" class="interaction-items">
               <a href="{{item.interactionConcept[1].sourceConceptItem.url}}" target="_blank">
                 {{ item.interactionConcept[1].minConceptItem.name }}
               </a>
-            </li>
-          </ul>
+          </div>
         </mat-expansion-panel>
       </ng-container>
       <ng-container *ngIf="!interactions.interactionTypeGroup">
