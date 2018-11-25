@@ -1,0 +1,26 @@
+<div class="patient-searchbar">
+
+  <h5>Select a patient : </h5>
+  <input type="text" [(ngModel)]="this.id" placeholder="2" (keydown.enter)="lookForVisit()" />
+  <!-- <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
+ OR
+  <input type="number" [(ngModel)]="this.id" placeholder="Patient ID" (keydown.enter)="searchPatient(0)" />
+  <br>
+  -->
+  <button mat-raised-button (click)="searchVisit()">Select Patient Id</button> 
+  
+  
+  <div id="patient-error-message"></div>
+  
+<div *ngIf="multipleResults" class="search-error">
+  More than one patient matched your request. Please select one: <br>
+  <div *ngFor="let patient of pList; let i = index">
+      <button mat-stroked-button class="select-patient-button" (click)="searchVisit()" > 
+         {{ visit.date }} {{ visit.patientId }} {{ visit.weight }} {{ visit.bloodpessure }}
+         {{ visit.doctorDescription }} {{ visit.PatientNote }}
+      </button>
+  </div>
+     
+</div>
+
+</div>

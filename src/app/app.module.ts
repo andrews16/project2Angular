@@ -31,6 +31,7 @@ import { SearchComponent } from './components/rx/search/search.component';
 import { RxConceptPipe } from './pipes/rx-concept.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { VisitSearchComponent } from './components/visit-search/visit-search.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     TestingComponent,
     SearchComponent,
     RxConceptPipe,
-    DashboardComponent
+    DashboardComponent,
+    VisitSearchComponent
   ],
   imports: [
     AppRoutingModule,
