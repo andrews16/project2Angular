@@ -3,7 +3,10 @@ import { Subscription } from 'rxjs';
 import { PatientService } from 'src/app/services/patient.service';
 import { RxService } from 'src/app/services/rx.service';
 import { Rx } from 'src/app/models/rx';
-import { HttpErrorResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SubmittedNewRxComponent } from './submitted-new-rx-component';
+
+
 
 @Component({
   selector: 'app-new-rx',
@@ -17,15 +20,15 @@ export class NewRxComponent implements OnInit, OnDestroy {
   rx = this.rxService.currentRx;
   rxSub: Subscription;
   checked = false;
-  submitted = false;
+
 
 
   constructor(private patientService: PatientService,
-    private rxService: RxService) {
+    private rxService: RxService,
+    private modalService: NgbModal) {
     this.currentPatientSub = this.patientService.$patient.subscribe( (data) => {
       this.patient = data;
       this.rx.patientId = this.patient.id;
-      this.submitted = false;
     });
 
     this.rxSub = this.rxService.$rx.subscribe( (data) => {
@@ -34,7 +37,6 @@ export class NewRxComponent implements OnInit, OnDestroy {
       if (this.patient && this.patient.id) {
         this.rx.patientId = this.patient.id;
       }
-      this.submitted = false;
     });
 
   }
@@ -58,20 +60,29 @@ export class NewRxComponent implements OnInit, OnDestroy {
 //////////////////////////////
 
   onSubmit() {
-    console.log('submit');
     this.checked = true;
-    console.log(this.rx);
     if (this.rx.dose &&
      this.rx.frequency &&
      this.rx.patientId &&
      this.rx.name) {
-       this.submitted = true;
      this.rxService.add(this.rx).subscribe(
       (data) => {
+        this.open(SubmittedNewRxComponent);
+        this.resetForm();
         this.patientService.nextPatient(this.patientService.currentPatient);
       });
     }
   }
 
+  resetForm() {
+    this.checked = false;
+    this.rx.dose = null;
+    this.rx.frequency = null;
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'successfully-added-prescription', centered: true});
+  }
 
 }
+
