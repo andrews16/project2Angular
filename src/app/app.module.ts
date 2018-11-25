@@ -31,6 +31,7 @@ import { SearchComponent } from './components/rx/search/search.component';
 import { RxConceptPipe } from './pipes/rx-concept.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { VisitSearchComponent } from './components/visit-search/visit-search.component';
 import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
 import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx-component';
 
@@ -53,6 +54,7 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
     SearchComponent,
     RxConceptPipe,
     DashboardComponent,
+    VisitSearchComponent
     NewRxComponent,
     SubmittedNewRxComponent
   ],
