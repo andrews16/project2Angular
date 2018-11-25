@@ -18,9 +18,16 @@ export class ArchiveTableDataSource extends DataSource<Rx> implements OnDestroy 
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private rxComm: RxService) {
     super();
-    this.data = this.rxComm.currentRxArchive;
+    // Data from API is reversed so the most recently removed Rxs come first.
+    this.data = this.rxComm.currentRxArchive.reverse();
     this.archiveSub = rxComm.$rxArchive.subscribe( (data) => {
-    this.data = data;
+      // Assure that the data isn't reversed twice.
+      if (data.length > 1) {
+        if (data[0].id < data[1].id) {
+          data = data.reverse();
+        }
+      }
+      this.data = data;
     });
   }
 

@@ -1,0 +1,67 @@
+
+  <div class="modal-header">
+    <h4 class="modal-title">
+      Confirm Prescription Removal
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<ng-container *ngIf="loaded">
+  
+  <div class="modal-body">
+    <ng-container *ngIf="!resolved">
+      <div id="removal-details-all">
+        <div class="removal-detail">
+          <span class="removal-detail-title"> Patient Name : </span> 
+          <span class="removal-detail-description">
+            {{patient.getFullName()}}
+          </span>
+        </div>
+        <div class="removal-detail">
+          <span class="removal-detail-title"> Prescription Name : </span>
+          <span class="removal-detail-description">
+            {{removalCandidate.name}}
+          </span>
+        </div>
+        <div class="removal-detail">
+            <span class="removal-detail-title"> Prescription Dose : </span>
+            <span class="removal-detail-description">
+              {{removalCandidate.dose}}
+            </span>
+        </div>
+        <div class="removal-detail">
+          <span class="removal-detail-title"> Prescription Frequency : </span>
+          <span class="removal-detail-description">
+            {{removalCandidate.frequency}}
+          </span>
+        </div>
+        <div class="removal-detail">
+          <span class="removal-detail-title"> Prescribed Since : </span>
+          <span class="removal-detail-description">
+            {{removalCandidate.dateStarted}}
+          </span>
+        </div>
+      </div>
+    </ng-container>
+    
+    <ng-container *ngIf="resolved && !error">
+      Prescription has been removed. 
+    </ng-container>
+
+    <ng-container *ngIf="error">
+      Error! Please try again later.
+    </ng-container>
+  </div>
+</ng-container>
+
+<div class="modal-footer">
+  <ng-container *ngIf="resolved">
+  <button  *ngIf="removalCandidate" type="button" class="btn btn-primary" (click)="activeModal.dismiss('close')">Close</button>  
+</ng-container>
+
+<ng-container *ngIf="!resolved">
+    <button  *ngIf="removalCandidate" type="button" class="btn btn-primary" (click)="activeModal.dismiss('cancel')">Cancel</button>
+    <button  *ngIf="removalCandidate" type="button" class="btn btn-danger" (click)="removeRx()">Remove</button>
+  </ng-container>
+</div>

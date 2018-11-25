@@ -6,18 +6,3 @@ table {
   border-collapse: collapse;
   width:100%;
 }
-#removal-details-all {
-  max-width:35em;
-}
-.removal-detail {
-  display:flex;
-  flex-direction: row;
-}
-.removal-detail-description {
-  flex: 1 1;
-  text-align: center;
-  padding-left:2em;
-}
-.removal-detail-title {
-  font-weight:500;
-}

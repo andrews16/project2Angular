@@ -34,6 +34,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { VisitSearchComponent } from './components/visit-search/visit-search.component';
 import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
 import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx-component';
+import { RemoveRxDialogComponent } from './components/rx/rx-table/remove-rx-dialog/remove-rx-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
     DashboardComponent,
     VisitSearchComponent,
     NewRxComponent,
-    SubmittedNewRxComponent
+    SubmittedNewRxComponent,
+    RemoveRxDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -86,7 +88,8 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    SubmittedNewRxComponent
+    SubmittedNewRxComponent,
+    RemoveRxDialogComponent
   ]
 })
 export class AppModule { }

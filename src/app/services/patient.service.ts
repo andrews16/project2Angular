@@ -27,7 +27,6 @@ export class PatientService {
 ${patient.id ? `id=${patient.id}&` : ''}\
 ${patient.lastName ? `lastName=${patient.lastName}&` : ''}\
 ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
-  console.log(apiUrl);
     return this.httpClient.get<Patient[]>(apiUrl,
       {headers:
         {'Content-Type': 'application/json'}
