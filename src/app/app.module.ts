@@ -54,7 +54,7 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
     SearchComponent,
     RxConceptPipe,
     DashboardComponent,
-    VisitSearchComponent
+    VisitSearchComponent,
     NewRxComponent,
     SubmittedNewRxComponent
   ],
