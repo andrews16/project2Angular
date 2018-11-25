@@ -12,7 +12,7 @@ export class RxService {
 
   url: string;
   $rx = new Subject<Rx>();
-  currentRx: Rx;
+  currentRx = new Rx();
   $rxList = new Subject<Rx[]>();
   currentRxList: Rx[];
   $rxArchive = new Subject<Rx[]>();
@@ -42,12 +42,8 @@ export class RxService {
 
     // Allows for optional input of (null, id#)
   getList(patient: Patient, id?: number) {
-    if (!patient && id) {
-      patient = new Patient();
-      patient.id = id;
-    }
+    patient = this.patientOrId(patient, id);
     const url = `${this.url}${patient.id}`;
-    const payload = JSON.stringify(patient);
     return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
@@ -55,22 +51,42 @@ export class RxService {
   }
 
   getArchive(patient: Patient, id?: number) {
-    if (!patient && id) {
-      patient = new Patient();
-      patient.id = id;
-    }
+    patient = this.patientOrId(patient, id);
     const url = `${this.url}archive/${patient.id}`;
     const payload = JSON.stringify(patient);
     return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
-    });
+      });
+  }
+
+  // Utility method so that we can select by Patient input OR id input
+  private patientOrId(patient: Patient, id?: number): Patient {
+    if (patient && patient.id) {
+      return patient;
+    } else if ((!patient || !patient.id) && id) {
+      patient = new Patient();
+      patient.id = id;
+    } else if ((!patient || !patient.id) && !id) {
+      patient = new Patient();
+      patient.id = 0;
+      return patient;
+    }
   }
 
   remove(id: number) {
     const url = `${this.url}remove/${id}`;
     console.log('rx service remove' + id);
     return this.httpClient.get<Rx[]>(url,
+      {headers:
+        {'Content-Type': 'application/json'}
+    });
+  }
+
+   add(rx: Rx) {
+    const url = `${this.url}add`;
+    console.log('rx service add' + rx);
+    return this.httpClient.post<Rx>(url, JSON.stringify(rx),
       {headers:
         {'Content-Type': 'application/json'}
     });

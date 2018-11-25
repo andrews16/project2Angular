@@ -1,19 +1,29 @@
 <h4> Prescriptions </h4> 
 
 <h6>Search for Prescription information</h6>
-<input type="text" placeholder="Input Drug Name" 
-[(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
-<br> 
-<button mat-raised-button (click)="getRxByName(input)" >Search Prescriptions</button>
+<center>
+  <div class="search-bar-box">
+    <input type="text" id="rx-search" placeholder="Input Drug Name" 
+    [(ngModel)]="input" (keydown.enter)="getRxByName(input)" />
+    <br> 
+    <div class="search-button-holder">
+      <button mat-raised-button (click)="getRxByName(input)" >Search Prescriptions</button>
+    </div>
+  </div>
+</center>
 
-<div *ngIf="spellingSuggestions">
-  <div id="spelling-suggestions"></div>
-  <ul id="suggestion-list">
-    <li *ngFor="let drug of suggestions">
-      <button mat-stroked-button class="drug-spelling" (click)="getRxBySuggestion(drug)"> {{drug}} </button>
-    </li>
-  </ul>
-</div>
+<ng-container *ngIf="spellingSuggestions">
+<div id="spelling-suggestions-message"></div>
+  <div class="suggestion-list">
+    <button
+     *ngFor="let drug of suggestions"
+      mat-stroked-button 
+      class="suggestion" 
+      (click)="getRxBySuggestion(drug)"> 
+      {{drug}} 
+    </button>
+  </div>  
+</ng-container>
 
 <div *ngIf="loading">
     <app-loading></app-loading>
@@ -25,11 +35,12 @@
     <div class="result-box" *ngIf="success">
       <div class="results-title">Results for {{searchTerm}}</div>
       <ng-container *ngFor="let concept of drugProperties">
-        <mat-card *ngIf="concept.conceptProperties">
+        <mat-card class="concept-card" *ngIf="concept.conceptProperties">
           <div class="drug-concept">
             <div class="drug-concept-title">
               {{concept.tty | rxConcept}}:
             </div>
+            <div class="drug-concept-spacer"></div>
             <div class="drug-concept-property">
               {{concept.conceptProperties[0].name}} 
             </div>
@@ -43,44 +54,37 @@
     <div class="result-box" *ngIf="interactions && interactions !== null">
       <div class="results-title">Interaction Results</div>
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let type of interactions.interactionTypeGroup[0].interactionType">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
+
+        <ng-container *ngIf="interactions.interactionTypeGroup">
+          <mat-expansion-panel *ngFor="let type of interactions.interactionTypeGroup[0].interactionType">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
               {{type.interactionPair[0].interactionConcept[0].minConceptItem.name}}
             </mat-panel-title>
             <mat-panel-description>
               Interacting Ingredient
             </mat-panel-description>
           </mat-expansion-panel-header>
-      
-          <ul class="interaction-items">
-            <li *ngFor="let item of type.interactionPair">
+          
+          <div *ngFor="let item of type.interactionPair" class="interaction-items">
               <a href="{{item.interactionConcept[1].sourceConceptItem.url}}" target="_blank">
                 {{ item.interactionConcept[1].minConceptItem.name }}
               </a>
-            </li>
-          </ul>
-          
+          </div>
         </mat-expansion-panel>
-      </mat-accordion>
+      </ng-container>
+      <ng-container *ngIf="!interactions.interactionTypeGroup">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>No Results found!</mat-panel-title>
+            </mat-expansion-panel-header>
+            No interaction results found!
+        </mat-expansion-panel>
+      </ng-container>
+      
+    </mat-accordion>
     </div>
     
   </mat-grid-tile>
 </mat-grid-list>
 
-<hr>
-
-<div *ngIf="patient === undefined || patient === null">
-  If you would like prescribe this prescription, please select a patient first.
-</div>
-
-<div *ngIf="success && patient && patient.id">
-  Prescribe {{searchTerm}} to {{patient.getFullName()}}:
-  
-  <input type="text" placeholder="dose" [(ngModel)]="rx.dose" />
-  <input type="text" placeholder="frequency" [(ngModel)]="rx.frequency" />
-  
-  <br>
-<button mat-raised-button>Add Prescription</button>
-
-</div>

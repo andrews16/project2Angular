@@ -10,11 +10,11 @@ import { VisitsComponent } from './components/visits/visits/visits.component';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectPatientComponent } from './components/shared/select-patient/select-patient.component';
 import { PatientRxComponent } from './components/rx/patient-rx/patient-rx.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
@@ -32,6 +32,8 @@ import { RxConceptPipe } from './pipes/rx-concept.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { VisitSearchComponent } from './components/visit-search/visit-search.component';
+import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
+import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx-component';
 
 @NgModule({
   declarations: [
@@ -53,11 +55,14 @@ import { VisitSearchComponent } from './components/visit-search/visit-search.com
     RxConceptPipe,
     DashboardComponent,
     VisitSearchComponent
+    NewRxComponent,
+    SubmittedNewRxComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     BrowserAnimationsModule,
@@ -79,6 +84,9 @@ import { VisitSearchComponent } from './components/visit-search/visit-search.com
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SubmittedNewRxComponent
+  ]
 })
 export class AppModule { }

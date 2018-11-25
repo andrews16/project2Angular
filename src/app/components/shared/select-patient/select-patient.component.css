@@ -5,3 +5,14 @@
 input {
     margin:5px;
 }
+
+.search-button-holder {
+    display:flex;
+    flex-direction: row;
+}
+
+.show-current-patient{
+    flex: 1 1;
+    text-align: center;
+    font-weight: 500;
+}

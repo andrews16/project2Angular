@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Doctor\'s Office';
 
-  
+
 // This is for testing, feel free to remove
   clicked = false;
 
