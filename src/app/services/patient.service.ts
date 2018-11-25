@@ -26,7 +26,7 @@ export class PatientService {
     const apiUrl = `${this.url}?\
 ${patient.id ? `id=${patient.id}&` : ''}\
 ${patient.lastName ? `lastName=${patient.lastName}&` : ''}\
-${patient.birthday ? `birthday=${patient.birthday}` : ''}`; 
+${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
   console.log(apiUrl);
     return this.httpClient.get<Patient[]>(apiUrl,
       {headers:
@@ -50,7 +50,7 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
 
   nextPatientList(patientList: Patient[]) {
     if (!patientList) {
-      console.log('patient-comm-service no patientlist to push!');
+      console.log('Patient Service Error');
     }
     this.$patientList.next(patientList);
     this.currentPatientList = patientList;
