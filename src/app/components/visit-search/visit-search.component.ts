@@ -12,7 +12,7 @@ import { Visit } from '../../models/visit';
 })
 export class VisitSearchComponent implements OnInit {
 
-  id : number;
+  visitId : number;
   patientId : number;
   doctorId : number;
   date : string;
@@ -48,6 +48,7 @@ export class VisitSearchComponent implements OnInit {
   ngOnInit() {
     this.currentPatientSub = this.patientService.$patient.subscribe((data) => {
       this.currentPatient = data;
+      this.currentPatient.doctorId = this.doctorId
       console.log(data);
     });
 
@@ -61,8 +62,8 @@ export class VisitSearchComponent implements OnInit {
     );
     // Clears out current patient so no information is confused.
     this.visitService.currentVisit = visit;
-    if (this.id) {
-      visit.id = this.id;
+    if (this.visitId) {
+      visit.visitId = this.visitId;
     }
       visit.date = this.date;
       visit.patientId = this.patientId;
