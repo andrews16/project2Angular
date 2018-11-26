@@ -12,7 +12,7 @@ import { Patient } from 'src/app/models/patient';
   styleUrls: ['./visits.component.css']
 })
 export class VisitsComponent implements OnInit {
-  id : number;
+  visitId : number;
   patientId : number;
   doctorId : number;
   date : string;
@@ -50,7 +50,6 @@ export class VisitsComponent implements OnInit {
   ngOnInit() {
     this.currentPatientSub = this.patientService.$patient.subscribe((data) => {
       this.currentPatient = data;
-      console.log(data);
     });
 
     if (this.patientService.currentPatient !== undefined) {
@@ -60,6 +59,7 @@ export class VisitsComponent implements OnInit {
 
   submitVisit() {
     // const visit = new Visit();
+    this.visit.visitId = this.visitId;
     this.visit.date = this.date;
     this.visit.weight = this.weight;
     this.visit.patientId = this.currentPatient.id;
@@ -69,10 +69,11 @@ export class VisitsComponent implements OnInit {
     this.visit.PatientNote = this.doctorDescription;
     console.log(this.visit);
 
-    // this.visitService.addVisit(this.visit).subscribe( (data) => {
-    //   console.log(data);
-    //   this.visitService.addVisit(data);
-  }
+    this.visitService.addVisit(this.visit).subscribe( (data) => {
+      console.log(data);
+      this.visitService.addVisit(data);
+  });
+}
 
   // searchVisit() {
   //   const visit = new Visit(
