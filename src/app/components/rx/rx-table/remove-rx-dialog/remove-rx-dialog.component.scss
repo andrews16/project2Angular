@@ -1,0 +1,11 @@
+.removal-detail {
+display:flex;
+flex-direction: row;
+}
+.removal-detail-description {
+flex: 1 1;
+padding-left:1em;
+}
+.removal-detail-title {
+font-weight:500;
+}

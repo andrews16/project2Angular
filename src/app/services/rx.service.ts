@@ -76,7 +76,6 @@ export class RxService {
 
   remove(id: number) {
     const url = `${this.url}remove/${id}`;
-    console.log('rx service remove' + id);
     return this.httpClient.get<Rx[]>(url,
       {headers:
         {'Content-Type': 'application/json'}
@@ -85,7 +84,6 @@ export class RxService {
 
    add(rx: Rx) {
     const url = `${this.url}add`;
-    console.log('rx service add' + rx);
     return this.httpClient.post<Rx>(url, JSON.stringify(rx),
       {headers:
         {'Content-Type': 'application/json'}
