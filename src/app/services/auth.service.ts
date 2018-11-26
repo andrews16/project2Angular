@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as auth0 from 'auth0-js';
+// import * as auth0 from 'auth0-js';
 import { GlobalsService } from './globals.service';
 
 (window as any).global = window;

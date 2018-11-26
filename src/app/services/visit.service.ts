@@ -36,18 +36,10 @@ export class VisitService {
       {headers:
         {'Content-Type': 'application/json'}
       });
-      
    }
 
    getVisit(visit: Visit) {
-    const apiUrl = `${this.url}?\
-    ${visit.visitId ? `id=${visit.visitId}&` : ''}\
-    ${visit.date ? `lastName=${visit.date}&` : ''}\
-    ${visit.patientId ? `birthday=${visit.patientId}` : ''}\
-    ${visit.doctorId ? `lastName=${visit.doctorId}&` : ''}\
-    ${visit.weight ? `lastName=${visit.weight}&` : ''}\
-    ${visit.bloodpressure ? `lastName=${visit.bloodpressure}&` : ''}\
-    ${visit.PatientNote ? `lastName=${visit.PatientNote}&` : ''}`;
+    const apiUrl = `${this.url}/visit/${this.visitId}`;
       console.log(apiUrl);
         return this.httpClient.get<Visit>(apiUrl,
           {headers:
