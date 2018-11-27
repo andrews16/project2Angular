@@ -1,3 +1,33 @@
-<p>
-  login works!
-</p>
+<div text-align="center">
+  <app-loading *ngIf="loading"></app-loading>
+</div>
+<div *ngIf="!loading" class="login-div">
+  <h1> Login </h1>
+  <h3>Electronic Reimbursement System</h3>
+  <form class="login-input">
+    <mat-form-field class="login-input">
+      <input matInput 
+      [(ngModel)]="inputUsername" 
+      placeholder="Username" name="username" 
+      (keydown.enter)="login()" 
+      required>
+    </mat-form-field> 
+    <br>
+    <mat-form-field class="login-input">
+      <input matInput [(ngModel)]="inputPassword" 
+      type="password" placeholder="Password" name="password"
+      (keydown.enter)="login()"
+      required>
+    </mat-form-field>
+  </form>
+  <div *ngIf="missingField" class="error">
+    Please enter all required input
+  </div>
+  <div *ngIf="loginFailed" class="error">
+    The username and password <br> 
+    combination was not found!
+  </div>
+  <button (click)="login()" mat-raised-button color="accent">
+    Login!
+  </button>
+</div>

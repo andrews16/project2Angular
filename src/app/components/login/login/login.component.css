@@ -1,0 +1,14 @@
+.login-div {
+    text-align:center;
+}
+.login-input{
+    width:100%;
+}
+.login-form {
+    min-width:55%;
+}
+.error {
+    color:red;
+    font-style: italic;
+    padding:7px;
+}

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { UserService } from './services/user.service';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +11,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Doctor\'s Office';
 
+  currentUser: User;
+  userSubscription: Subscription;
 
-// This is for testing, feel free to remove
-  clicked = false;
+  constructor(private userService: UserService) {
+    this.userSubscription = this.userService.$user.subscribe( (data) =>
+      this.currentUser = data
+    );
+    this.userService.getSession();
+  }
 
-
+  logout() {
+    this.userService.logout();
+  }
 }
