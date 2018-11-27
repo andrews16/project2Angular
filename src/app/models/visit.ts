@@ -2,7 +2,7 @@ export class Visit {
 
 	constructor(
 
-    public visitId : number,
+    public id : number,
 
     public date : string,
     public patientId : number,

@@ -11,7 +11,7 @@ import { Visit } from '../models/visit';
 })
 export class VisitService {
 
-    visitId : number;
+    id : number;
     patientId : number;
     doctorId : number;
     date : string;
@@ -38,8 +38,8 @@ export class VisitService {
       });
    }
 
-   getVisit(visit: Visit) {
-    const apiUrl = `${this.url}/visit/${this.visitId}`;
+   getVisit(id: Visit) {
+    const apiUrl = `${this.url}/${this.id}`;
       console.log(apiUrl);
         return this.httpClient.get<Visit>(apiUrl,
           {headers:

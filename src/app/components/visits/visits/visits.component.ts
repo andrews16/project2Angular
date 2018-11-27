@@ -12,7 +12,7 @@ import { Patient } from 'src/app/models/patient';
   styleUrls: ['./visits.component.css']
 })
 export class VisitsComponent implements OnInit {
-  visitId : number;
+  id : number;
   patientId : number;
   doctorId : number;
   date : string;
@@ -59,7 +59,7 @@ export class VisitsComponent implements OnInit {
 
   submitVisit() {
     // const visit = new Visit();
-    this.visit.visitId = this.visitId;
+    this.visit.id = this.id;
     this.visit.date = this.date;
     this.visit.weight = this.weight;
     this.visit.patientId = this.currentPatient.id;

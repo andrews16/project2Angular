@@ -12,7 +12,7 @@ import { Visit } from '../../models/visit';
 })
 export class VisitSearchComponent implements OnInit {
 
-  visitId : number;
+  id : number;
   patientId : number;
   doctorId : number;
   date : string;
@@ -60,10 +60,11 @@ export class VisitSearchComponent implements OnInit {
     const visit = new Visit(
       undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined
     );
+    visit.id = 0;
     // Clears out current patient so no information is confused.
     this.visitService.currentVisit = visit;
-    if (this.visitId) {
-      visit.visitId = this.visitId;
+    if (this.id) {
+      visit.id = this.id;
     }
       visit.date = this.date;
       visit.patientId = this.patientId;
@@ -73,7 +74,7 @@ export class VisitSearchComponent implements OnInit {
       visit.doctorDescription = this.doctorDescription;
       visit.PatientNote = this.PatientNote;
     //const errorBox = document.getElementById('visit-error-message');
-    this.visitService.getVisit(visit).subscribe( (data) => {
+    this.visitService.getVisit(visit).subscribe( (query) => {
       // if (data.length > 1) {
       //   this.multipleResults = true;
       //   errorBox.innerText = '';
@@ -85,7 +86,7 @@ export class VisitSearchComponent implements OnInit {
       //   this.multipleResults = false;
        
      // errorBox.innerText = '';
-        this.visitService.getVisit(data);
+        this.visitService.getVisit(query);
      // }
     // }, (err) => {
     //   if ( err.status % 399 < 100 ) {
