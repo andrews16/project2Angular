@@ -11,7 +11,7 @@ import { Visit } from '../models/visit';
 })
 export class VisitService {
 
-    id : number;
+    visitId : number;
     patientId : number;
     doctorId : number;
     date : string;
@@ -32,7 +32,7 @@ export class VisitService {
    addVisit(data: Visit) {
       const apiUrl = `${this.url}/add`;
       console.log(data);
-      return this.httpClient.post<Visit>(apiUrl, data,
+      return this.httpClient.post<Visit>(apiUrl, JSON.stringify(data),
       {headers:
         {'Content-Type': 'application/json'}
       });
@@ -41,7 +41,7 @@ export class VisitService {
 
    getVisit(visit: Visit) {
     const apiUrl = `${this.url}?\
-    ${visit.id ? `id=${visit.id}&` : ''}\
+    ${visit.visitId ? `id=${visit.visitId}&` : ''}\
     ${visit.date ? `lastName=${visit.date}&` : ''}\
     ${visit.patientId ? `birthday=${visit.patientId}` : ''}\
     ${visit.doctorId ? `lastName=${visit.doctorId}&` : ''}\
