@@ -1,3 +1,4 @@
 <mat-card>
-    <app-doctor-view-rx></app-doctor-view-rx>
+    <app-doctor-view-rx *ngIf="currentUser && currentUser.role === 'DOCTOR'"></app-doctor-view-rx>
+    <app-patient-rx *ngIf="currentUser && currentUser.role === 'PATIENT'"></app-patient-rx>
 </mat-card>

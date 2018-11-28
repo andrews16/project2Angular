@@ -5,20 +5,27 @@
         <i class="material-icons">view_quilt</i>
       </a>
     </li>
-    <li>
-        <a routerLink="billing" [class.activated]="currentUrl == '/billing'" >
-          <i class="material-icons">attach_money</i>
+    <ng-container *ngIf="currentUser && currentUser.id">
+      <li>
+          <a routerLink="billing" [class.activated]="currentUrl == '/billing'" >
+            <i class="material-icons">attach_money</i>
+          </a>
+        </li>
+      <li>
+        <a routerLink="rx" [class.activated]="currentUrl == '/rx'" >
+          <i class="material-icons">edit_attributes</i>
         </a>
       </li>
-    <li>
-      <a routerLink="rx" [class.activated]="currentUrl == '/rx'" >
-        <i class="material-icons">edit_attributes</i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="visits" [class.activated]="currentUrl == '/visits'" >
-        <i class="material-icons">assignment</i>
-      </a>
-    </li>
+      <li>
+        <a routerLink="visits" [class.activated]="currentUrl == '/visits'" >
+          <i class="material-icons">assignment</i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="">
+          <i class="material-icons" (click)="logout()">exit_to_app</i>
+        </a>
+      </li>
+    </ng-container>
   </ul>
 </nav>

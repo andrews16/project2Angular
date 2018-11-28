@@ -1,12 +1,48 @@
+<h1>Prescriptions</h1>
 
-App-patient-rx component WIP:
-<h3>Patient Prescriptions</h3>
-<p>
-  To view prescriptions, please input the patient ID number below.
-</p>
+<!-- Patient-search component -->
 
-<div *ngIf="!loading && success">
-    <app-rx-table></app-rx-table>
-</div>
+<mat-accordian>
+    <mat-expansion-panel  [expanded]="step === 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        Current Prescriptions
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <ng-container *ngIf="!currentPatient || !currentPatient.id ">
+      Something went wrong!
+    </ng-container>
+    <!-- Show the Patient's RXs -->
+    <div class="loading" *ngIf="loading">
+      <app-loading></app-loading>
+    </div> 
+    <div id="error-message"></div>
+    <app-rx-table *ngIf="!loading && showRxTable"></app-rx-table>
+  
+  </mat-expansion-panel>
 
-View old prescriptions?
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Past Prescriptions
+          </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngIf="!currentPatient || !currentPatient.id ">
+        Something went wrong!
+    </ng-container>
+      <!-- Show the Patient's RXs -->
+      
+    <div class="loading" *ngIf="loadingArchive">
+      <app-loading></app-loading>
+    </div> 
+    <app-archive-table *ngIf="!loadingArchive && showArchive"></app-archive-table>
+    <div id="error-archive-message"></div>
+
+
+  </mat-expansion-panel>
+
+</mat-accordian> 
+
+
