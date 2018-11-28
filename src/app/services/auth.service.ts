@@ -10,7 +10,7 @@ import { GlobalsService } from './globals.service';
 @Injectable()
 export class AuthService {
 
-  auth0 = new auth0.WebAuth({
+  auth0 = new this.auth0.WebAuth({
     clientID: '7s94Ea1g8cv6rvhItKDBX4Mfjft61sk2',
     domain: 'project2-doctor-site.auth0.com',
     responseType: 'token id_token',

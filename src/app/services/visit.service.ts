@@ -11,24 +11,23 @@ import { Visit } from '../models/visit';
 })
 export class VisitService {
 
-    id : number;
-    patientId : number;
-    doctorId : number;
-    date : string;
-    bloodpressure : string;
-    weight : number;
-    doctorDescription : string;
-    PatientNote : string;
+    id: number;
+    patientId: number;
+    doctorId: number;
+    date: string;
+    bloodpressure: string;
+    weight: number;
+    doctorDescription: string;
+    PatientNote: string;
 
-    currentVisit : Visit;
+    currentVisit: Visit;
 
   url: string;
 
-  constructor(private httpClient: HttpClient, 
+  constructor(private httpClient: HttpClient,
   private globals: GlobalsService) {
     this.url = this.globals.API_URL + 'visit';
    }
-   
    addVisit(data: Visit) {
       const apiUrl = `${this.url}/add`;
       console.log(data);
@@ -38,8 +37,9 @@ export class VisitService {
       });
    }
 
-   getVisit(id: Visit) {
-    const apiUrl = `${this.url}/${this.id}`;
+   getVisit(query: Visit) {
+    //  const visits(query) = i;
+    const apiUrl = `${this.url}/${query.id}`;
       console.log(apiUrl);
         return this.httpClient.get<Visit>(apiUrl,
           {headers:

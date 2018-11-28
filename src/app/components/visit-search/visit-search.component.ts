@@ -12,81 +12,65 @@ import { Visit } from '../../models/visit';
 })
 export class VisitSearchComponent implements OnInit {
 
-  id : number;
-  patientId : number;
-  doctorId : number;
-  date : string;
-  bloodpressure : string;
-  weight : number;
-  firstName : string;
-  lastName : string;
+  visit: Visit;
+   id: number;
+  // patientId: number;
+   doctorId: number;
+  // date: string;
+  // bloodpressure: string;
+  // weight: number;
+  // firstName: string;
+  // lastName: string;
 
-  doctorDescription : string;
+  doctorDescription: string;
 
-  PatientNote : string;
+  PatientNote: string;
 
 
-  visit = new Visit(
-    0,
-    '',
-    0,
-    0,
-    0,
-    '',
-    '',
-    ''
-  );
-
-  
+  // visit = new Visit();
   currentPatient: Patient;
   currentPatientSub: Subscription;
 
 
-  constructor(private visitService: VisitService, 
+  constructor(private visitService: VisitService,
     private patientService: PatientService) { }
 
   ngOnInit() {
     this.currentPatientSub = this.patientService.$patient.subscribe((data) => {
       this.currentPatient = data;
-      this.currentPatient.doctorId = this.doctorId
+      this.currentPatient.doctorId = this.doctorId;
       console.log(data);
     });
+
+    // visit = new Visit();
 
     if (this.patientService.currentPatient !== undefined) {
       this.patientService.nextPatient(this.patientService.currentPatient);
     }
   }
   searchVisit() {
-    const visit = new Visit(
-      undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined
-    );
-    visit.id = 0;
-    // Clears out current patient so no information is confused.
-    this.visitService.currentVisit = visit;
-    if (this.id) {
-      visit.id = this.id;
+    const visit = new Visit();
+    if (this.id == null) {
+      console.log("id is null");
     }
-      visit.date = this.date;
-      visit.patientId = this.patientId;
-      visit.doctorId = this.doctorId;
-      visit.weight = this.weight;
-      visit.bloodpressure = this.bloodpressure;
-      visit.doctorDescription = this.doctorDescription;
-      visit.PatientNote = this.PatientNote;
-    //const errorBox = document.getElementById('visit-error-message');
+    console.log(this.id);
+  //  visit.id = 0;
+    // Clears out current patient so no information is confused.
+    // this.visitService.currentVisit = visit;
+      visit.id = this.id;
+      // visit.date = this.date;
+      // visit.patientId = this.patientId;
+      // visit.doctorId = this.doctorId;
+      // visit.weight = this.weight;
+      // visit.bloodpressure = this.bloodpressure;
+      // visit.doctorDescription = this.doctorDescription;
+      // visit.PatientNote = this.PatientNote;
+    // const errorBox = document.getElementById('visit-error-message');
     this.visitService.getVisit(visit).subscribe( (query) => {
-      // if (data.length > 1) {
-      //   this.multipleResults = true;
-      //   errorBox.innerText = '';
-      //   this.pList = data;
-      // } else if (data.length === 0) {
-      //   this.multipleResults = false;
-      //   errorBox.innerText = 'No results found!';
-      // } else {
-      //   this.multipleResults = false;
-       
-     // errorBox.innerText = '';
-        this.visitService.getVisit(query);
+      console.log("visit component");
+      console.log(query);
+      this.visit = query;
+      // this.visitService.getVisit(query);
      // }
     // }, (err) => {
     //   if ( err.status % 399 < 100 ) {
