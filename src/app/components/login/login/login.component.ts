@@ -26,12 +26,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService
     .$user.subscribe( (user) => {
-      if (!user.id) {
+      this.loading = false;
+      if (!user || !user.id) {
         this.loginFailed = true;
-        this.loading = false;
         this.inputPassword = null;
-      } else {
-//        this.router.navigate(['/dashboard']);
       }
     });
   }

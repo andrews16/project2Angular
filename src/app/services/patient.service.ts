@@ -38,7 +38,7 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
     // Data must be converted like this in order to pass along the getFullName() method.
     if (data && data.id) {
       patient = new Patient(data.id, data.username, data.firstName,
-        data.lastName, data.userRole, data.doctorId, data.birthday);
+        data.lastName, data.role, data.doctorId, data.birthday);
     } else {
       patient = new Patient();
       patient.id = 0;

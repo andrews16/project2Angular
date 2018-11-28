@@ -16,12 +16,12 @@ export class Patient extends User {
         username?: string,
         firstName?: string,
         lastName?: string,
-        userRole?: number,
+        userRole?: string,
         doctorId?: number,
         birthday?: string
     ) {
         super(id, username, firstName, lastName, userRole);
-        this.userRole = userRole;
+        this.role = userRole;
         this.doctorId = doctorId;
         this.birthday = birthday;
     }

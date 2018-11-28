@@ -1,14 +1,15 @@
-<div text-align="center">
-  <app-loading *ngIf="loading"></app-loading>
-</div>
-<div *ngIf="!loading" class="login-div">
-  <h1> Login </h1>
-  <h3>Electronic Reimbursement System</h3>
-  <form class="login-input">
-    <mat-form-field class="login-input">
-      <input matInput 
-      [(ngModel)]="inputUsername" 
-      placeholder="Username" name="username" 
+<center>
+<h1>Welcome to Your PC Doctor Dashboard!</h1>
+<app-loading *ngIf="loading" text-align="center"></app-loading>
+<mat-card *ngIf="!loading" >
+    <div text-align="center">
+    
+    <h3> Login </h3>
+    <form class="login-input">
+      <mat-form-field class="login-input">
+        <input matInput 
+        [(ngModel)]="inputUsername" 
+        placeholder="Username" name="username" 
       (keydown.enter)="login()" 
       required>
     </mat-form-field> 
@@ -27,7 +28,9 @@
     The username and password <br> 
     combination was not found!
   </div>
-  <button (click)="login()" mat-raised-button color="accent">
+  <button (click)="login()" mat-raised-button color="primary">
     Login!
   </button>
 </div>
+</mat-card>
+</center>

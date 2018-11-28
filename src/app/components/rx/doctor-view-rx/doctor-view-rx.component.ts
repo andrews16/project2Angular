@@ -57,7 +57,7 @@ export class DoctorViewRxComponent implements OnInit, OnDestroy {
         // stop loading, and show the table.
         if ( data.length === 0 ) {
           this.showRxTable = false;
-          errorBox.innerText = `No prescription history found!`;
+          errorBox.innerText = `No prescriptions found!`;
         } else {
           this.showRxTable = true;
           errorBox.innerText = '';

@@ -8,6 +8,8 @@ import { Rx } from 'src/app/models/rx';
 import { Subscription } from 'rxjs';
 import { RemoveRxDialogComponent } from './remove-rx-dialog/remove-rx-dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-rx-table',
@@ -22,18 +24,27 @@ export class RxTableComponent implements OnInit, OnDestroy {
   patientSubscription: Subscription;
   removalCandidate: Rx;
 
+  displayedColumns: string[];
+
+  currentUser: User;
+
   constructor(private rxService: RxService,
       private patientService: PatientService,
-      private modalService: NgbModal) {}
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'dose', 'frequency', 'dateStarted', 'remove'] ;
+      private modalService: NgbModal,
+      private userService: UserService) {
+        this.currentUser = this.userService.currentUser;
+      }
 
   ngOnInit() {
     this.dataSource = new RxTableDataSource(this.sort, this.rxService);
     this.patient = this.patientService.currentPatient;
     this.patientService.$patient.subscribe( (data) =>
-      this.patient = data
+    this.patient = data
     );
+    /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+    this.displayedColumns = this.currentUser.role === 'DOCTOR' ?
+        ['name', 'dose', 'frequency', 'dateStarted', 'remove']
+        : ['name', 'dose', 'frequency', 'dateStarted'];
   }
 
   ngOnDestroy() {
@@ -54,14 +65,6 @@ export class RxTableComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.loaded = true;
 
   }
-
-  // removeRx() {
-  //   // Remove one and then update the list.
-  //   this.rxService.remove(this.removalCandidate.id).subscribe( () => {
-  //     // This will refresh the tables
-  //     this.patientService.nextPatient(this.patientService.currentPatient);
-  //   } );
-  // }
 
 
 }

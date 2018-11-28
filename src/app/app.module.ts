@@ -23,7 +23,9 @@ import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
 import { MatTableModule, MatPaginatorModule,
   MatSortModule, MatButtonModule, MatDialogModule,
- MatExpansionModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
+ MatExpansionModule, MatGridListModule,
+ MatCardModule, MatMenuModule, MatIconModule,
+  MatFormFieldModule, MatInputModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TestingComponent } from './testing/testing.component';
@@ -81,7 +83,9 @@ import { RemoveRxDialogComponent } from './components/rx/rx-table/remove-rx-dial
     MatIconModule,
     LayoutModule,
     MatCardModule,
-    NgbModalModule
+    NgbModalModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
