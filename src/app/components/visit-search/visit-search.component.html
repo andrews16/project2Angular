@@ -1,6 +1,6 @@
 <div class="patient-searchbar">
-
-  <h5>Select a visit : </h5>
+<br>
+  <h2>Select a visit : </h2>
   <input type="text" [(ngModel)]="id" placeholder="2" />
   <!-- <input type="string" [(ngModel)]="this.birthday" placeholder="Birthday yyyy-mm-dd" (keydown.enter)="searchPatient()" />
  OR
@@ -9,18 +9,38 @@
   -->
 
   <button mat-raised-button (click)="searchVisit()">Select Visit Id</button> 
-  
-  <div>
+  <br>
+  <div class="search-return">
+        <div>
+          <h4>Date of visit</h4>
          {{ visit?.date }} 
-    
+         <br>
+       </div>
+        <div>
+          <h4>Patient's ID:</h4>
          {{ visit?.patientId }}
+         <br>
+        </div>
+        <div>
+          <h4>Patient's Weight:</h4>
          {{ visit?.weight }} 
-         
+         <br>
+        </div>
+         <div>
+           <h4>Bloodpressure on this Date:</h4>
          {{ visit?.bloodpressure }}
-
+         <br>
+        </div>
+        <div>
+          <h4>Doctor's Notes:</h4>
          {{ visit?.doctor_description }} 
-         
+         <br>
+        </div>
+         <div>
+           <h4>Patient's Notes (if any):</h4>
          {{ visit?.patientNote }}
-  </div>
-
+         <br>
+        </div>
+      </div>
 </div>
+<hr>

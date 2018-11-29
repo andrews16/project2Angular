@@ -4,7 +4,7 @@
 <app-visit-search></app-visit-search>
 
 <br>
-
+<h2>Make a New Note</h2>
 <app-select-patient></app-select-patient>
 
 
@@ -34,11 +34,16 @@
     <input [(ngModel)]="weight" type="text" class="form-control" id="Input3" placeholder="200">
   </div>
   <div class="form-group">
-    <label for="doctorNotes">Notes</label>
+    <label for="doctorNotes">Doctor's Notes</label>
     <textarea [(ngModel)]="doctorDescription" class="form-control" id="doctorNotes" rows="3" placeholder="Enter notes here"></textarea>
   </div>
-  <button class="btn btn-primary" (click)="submitVisit()">Submit Form</button>
-
+  <!-- <button class="btn btn-primary" (click)="submitVisit()">Submit Form</button> -->
+  <div class="form-group">
+      <label for="doctorNotes">Patient's Notes</label>
+      <textarea [(ngModel)]="patientNote" class="form-control" id="patientsnotes" rows="3" placeholder="Enter notes here"></textarea>
+    </div>
+    <button class="btn btn-primary" (click)="submitVisit()">Submit Form</button>
+  
 
 
 <!-- "visitId": "2",
