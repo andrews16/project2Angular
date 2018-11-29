@@ -4,26 +4,51 @@ import { Visit } from '../../../models/visit';
 import { PatientService } from 'src/app/services/patient.service';
 import { Subscription } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
+import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-visits',
   templateUrl: './visits.component.html',
   styleUrls: ['./visits.component.css']
-})
+
+//   animations: [
+//     trigger('listStagger', [
+//       transition('* <=> *', [
+//         query(
+//           ':enter',
+//           [
+//             style({ opacity: 0, transform: 'translateY(-15px)' }),
+//             stagger(
+//               '50ms',
+//               animate(
+//                 '550ms ease-out',
+//                 style({ opacity: 1, transform: 'translateY(0px)' })
+//               )
+//             )
+//           ],
+//           { optional: true }
+//         ),
+//         query(':leave', animate('50ms', style({ opacity: 0 })), {
+//           optional: true
+//         })
+//       ])
+//     ])
+//   ]
+ })
 export class VisitsComponent implements OnInit {
-  visitId : number;
-  patientId : number;
-  doctorId : number;
-  date : string;
-  bloodpressure : string;
-  weight : number;
-  firstName : string;
-  lastName : string;
+  id: number;
+  patientId: number;
+  doctorId: number;
+  date: string;
+  bloodpressure: string;
+  weight: number;
+  firstName: string;
+  lastName: string;
 
-  doctorDescription : string;
+  doctorDescription: string;
 
-  PatientNote : string;
+  PatientNote: string;
 
 
 
@@ -44,7 +69,7 @@ export class VisitsComponent implements OnInit {
 
   // visit = new Visit();
 
-  constructor(private visitService: VisitService, 
+  constructor(private visitService: VisitService,
   private patientService: PatientService) { }
 
   ngOnInit() {
@@ -59,7 +84,7 @@ export class VisitsComponent implements OnInit {
 
   submitVisit() {
     // const visit = new Visit();
-    this.visit.visitId = this.visitId;
+    this.visit.id = this.id;
     this.visit.date = this.date;
     this.visit.weight = this.weight;
     this.visit.patientId = this.currentPatient.id;
@@ -94,7 +119,6 @@ export class VisitsComponent implements OnInit {
   //   //const errorBox = document.getElementById('visit-error-message');
   //   this.visitService.getVisit(visit).subscribe( (data) => {
   //     this.patientService.nextPatient(data[0]);
-     
       // if (data.length > 1) {
       //   this.multipleResults = true;
       //   errorBox.innerText = '';
@@ -104,7 +128,6 @@ export class VisitsComponent implements OnInit {
       //   errorBox.innerText = 'No results found!';
       // } else {
       //   this.multipleResults = false;
-       
      // errorBox.innerText = '';
      // }
     // }, (err) => {
