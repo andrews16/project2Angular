@@ -26,8 +26,7 @@ export class PatientService {
     const apiUrl = `${this.url}?\
 ${patient.id ? `id=${patient.id}&` : ''}\
 ${patient.lastName ? `lastName=${patient.lastName}&` : ''}\
-${patient.birthday ? `birthday=${patient.birthday}` : ''}`; 
-  console.log(apiUrl);
+${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
     return this.httpClient.get<Patient[]>(apiUrl,
       {headers:
         {'Content-Type': 'application/json'}
@@ -39,7 +38,7 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
     // Data must be converted like this in order to pass along the getFullName() method.
     if (data && data.id) {
       patient = new Patient(data.id, data.username, data.firstName,
-        data.lastName, data.userRole, data.doctorId, data.birthday);
+        data.lastName, data.role, data.doctorId, data.birthday);
     } else {
       patient = new Patient();
       patient.id = 0;
@@ -50,7 +49,7 @@ ${patient.birthday ? `birthday=${patient.birthday}` : ''}`;
 
   nextPatientList(patientList: Patient[]) {
     if (!patientList) {
-      console.log('patient-comm-service no patientlist to push!');
+      console.log('Patient Service Error');
     }
     this.$patientList.next(patientList);
     this.currentPatientList = patientList;

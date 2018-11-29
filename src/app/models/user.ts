@@ -13,23 +13,25 @@ export class User {
     public username: string;
     public firstName: string;
     public lastName: string;
-    public userRole: number;
+    public role: string;
+
     constructor(
         id?: number,
         username?: string,
         firstName?: string,
         lastName?: string,
-        userRole?: number
+        userRole?: string
     ) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userRole = userRole;
+        this.role = userRole;
     }
 
     getFullName() {
-        return `${this.firstName} ${this.lastName}`;
+        const prefix = (this.role === 'DOCTOR') ? 'Dr.' : '';
+        return `${prefix} ${this.firstName} ${this.lastName}`;
     }
 
 }

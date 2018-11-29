@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
-import { RxService } from 'src/app/services/rx.service';
-import { PatientService } from 'src/app/services/patient.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-rx',
@@ -18,18 +18,12 @@ export class RxComponent implements OnInit {
   patId: number;
   patient: Patient;
 
+  currentUser: User;
+
   constructor(
-    private patientService: PatientService,
-    private rxService: RxService) { }
+    private userService: UserService) { }
 
   ngOnInit() {
-    // Load in a list of the doctor's patient's
-    // Use bootstrap's typeahead
-    // https://ng-bootstrap.github.io/#/components/typeahead/examples
-  }
-
-  selectPatient() {
-    // if (isNumber(this.rxInput)) {
-  //    this.patientService.getPatientById()
+    this.currentUser = this.userService.currentUser;
   }
 }

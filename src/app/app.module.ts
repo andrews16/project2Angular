@@ -23,7 +23,9 @@ import { MatDesignModule } from './mat-design/mat-design.module';
 import { ArchiveTableComponent } from './components/rx/archive-table/archive-table.component';
 import { MatTableModule, MatPaginatorModule,
   MatSortModule, MatButtonModule, MatDialogModule,
- MatExpansionModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
+ MatExpansionModule, MatGridListModule,
+ MatCardModule, MatMenuModule, MatIconModule,
+  MatFormFieldModule, MatInputModule } from '@angular/material';
 import { DoctorViewRxComponent } from './components/rx/doctor-view-rx/doctor-view-rx.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TestingComponent } from './testing/testing.component';
@@ -34,6 +36,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { VisitSearchComponent } from './components/visit-search/visit-search.component';
 import { NewRxComponent } from './components/rx/new-rx/new-rx.component';
 import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx-component';
+import { RemoveRxDialogComponent } from './components/rx/rx-table/remove-rx-dialog/remove-rx-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,8 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
     DashboardComponent,
     VisitSearchComponent,
     NewRxComponent,
-    SubmittedNewRxComponent
+    SubmittedNewRxComponent,
+    RemoveRxDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -79,14 +83,17 @@ import { SubmittedNewRxComponent } from './components/rx/new-rx/submitted-new-rx
     MatIconModule,
     LayoutModule,
     MatCardModule,
-    NgbModalModule
+    NgbModalModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    SubmittedNewRxComponent
+    SubmittedNewRxComponent,
+    RemoveRxDialogComponent
   ]
 })
 export class AppModule { }

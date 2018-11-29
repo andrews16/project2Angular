@@ -21,7 +21,21 @@
   <app-nav></app-nav>
   
   <div id="content">
-    <router-outlet></router-outlet>
+    <app-loading *ngIf="loading"></app-loading>
+
+    <ng-container *ngIf="!loading">
+      <ng-container *ngIf="!currentUser || !currentUser.id">
+        <app-login></app-login>
+      </ng-container>
+
+      <ng-container *ngIf="currentUser && currentUser.id">
+        <router-outlet></router-outlet>
+      </ng-container>
+ </ng-container>
+
   </div>
-  
+
+
 </div>
+
+

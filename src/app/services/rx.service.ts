@@ -45,8 +45,8 @@ export class RxService {
     patient = this.patientOrId(patient, id);
     const url = `${this.url}${patient.id}`;
     return this.httpClient.get<Rx[]>(url,
-      {headers:
-        {'Content-Type': 'application/json'}
+      {
+        withCredentials: true
       });
   }
 
@@ -55,8 +55,8 @@ export class RxService {
     const url = `${this.url}archive/${patient.id}`;
     const payload = JSON.stringify(patient);
     return this.httpClient.get<Rx[]>(url,
-      {headers:
-        {'Content-Type': 'application/json'}
+      {
+        withCredentials: true
       });
   }
 
@@ -76,19 +76,19 @@ export class RxService {
 
   remove(id: number) {
     const url = `${this.url}remove/${id}`;
-    console.log('rx service remove' + id);
     return this.httpClient.get<Rx[]>(url,
       {headers:
-        {'Content-Type': 'application/json'}
+        {'Content-Type': 'application/json'},
+        withCredentials: true
     });
   }
 
    add(rx: Rx) {
     const url = `${this.url}add`;
-    console.log('rx service add' + rx);
     return this.httpClient.post<Rx>(url, JSON.stringify(rx),
       {headers:
-        {'Content-Type': 'application/json'}
+        {'Content-Type': 'application/json'},
+        withCredentials: true
     });
   }
 
