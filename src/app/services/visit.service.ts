@@ -11,24 +11,23 @@ import { Visit } from '../models/visit';
 })
 export class VisitService {
 
-    visitId : number;
-    patientId : number;
-    doctorId : number;
-    date : string;
-    bloodpressure : string;
-    weight : number;
-    doctorDescription : string;
-    PatientNote : string;
+    id: number;
+    patientId: number;
+    doctorId: number;
+    date: string;
+    bloodpressure: string;
+    weight: number;
+    doctorDescription: string;
+    PatientNote: string;
 
-    currentVisit : Visit;
+    currentVisit: Visit;
 
   url: string;
 
-  constructor(private httpClient: HttpClient, 
+  constructor(private httpClient: HttpClient,
   private globals: GlobalsService) {
     this.url = this.globals.API_URL + 'visit';
    }
-   
    addVisit(data: Visit) {
       const apiUrl = `${this.url}/add`;
       console.log(data);
@@ -36,18 +35,11 @@ export class VisitService {
       {headers:
         {'Content-Type': 'application/json'}
       });
-      
    }
 
-   getVisit(visit: Visit) {
-    const apiUrl = `${this.url}?\
-    ${visit.visitId ? `id=${visit.visitId}&` : ''}\
-    ${visit.date ? `lastName=${visit.date}&` : ''}\
-    ${visit.patientId ? `birthday=${visit.patientId}` : ''}\
-    ${visit.doctorId ? `lastName=${visit.doctorId}&` : ''}\
-    ${visit.weight ? `lastName=${visit.weight}&` : ''}\
-    ${visit.bloodpressure ? `lastName=${visit.bloodpressure}&` : ''}\
-    ${visit.PatientNote ? `lastName=${visit.PatientNote}&` : ''}`;
+   getVisit(query: Visit) {
+    //  const visits(query) = i;
+    const apiUrl = `${this.url}/${query.id}`;
       console.log(apiUrl);
         return this.httpClient.get<Visit>(apiUrl,
           {headers:

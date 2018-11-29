@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as auth0 from 'auth0-js';
+// import * as auth0 from 'auth0-js';
 import { GlobalsService } from './globals.service';
 
 (window as any).global = window;
@@ -10,7 +10,7 @@ import { GlobalsService } from './globals.service';
 @Injectable()
 export class AuthService {
 
-  auth0 = new auth0.WebAuth({
+  auth0 = new this.auth0.WebAuth({
     clientID: '7s94Ea1g8cv6rvhItKDBX4Mfjft61sk2',
     domain: 'project2-doctor-site.auth0.com',
     responseType: 'token id_token',
