@@ -97,47 +97,26 @@ export class VisitsComponent implements OnInit {
     this.visitService.addVisit(this.visit).subscribe( (data) => {
       console.log(data);
       this.visitService.addVisit(data);
-  });
-}
+      // this.resetVisitForm();
 
-  // searchVisit() {
-  //   const visit = new Visit(
-  //     undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined
-  //   );
-  //   // Clears out current patient so no information is confused.
-  //   this.visitService.currentVisit = visit;
-  //   if (this.id) {
-  //     visit.id = this.id;
-  //   }
-  //     visit.date = this.date;
-  //     visit.patientId = this.patientId;
-  //     visit.doctorId = this.doctorId;
-  //     visit.weight = this.weight;
-  //     visit.bloodpressure = this.bloodpressure;
-  //     visit.doctorDescription = this.doctorDescription;
-  //     visit.PatientNote = this.PatientNote;
-  //   //const errorBox = document.getElementById('visit-error-message');
-  //   this.visitService.getVisit(visit).subscribe( (data) => {
-  //     this.patientService.nextPatient(data[0]);
-      // if (data.length > 1) {
-      //   this.multipleResults = true;
-      //   errorBox.innerText = '';
-      //   this.pList = data;
-      // } else if (data.length === 0) {
-      //   this.multipleResults = false;
-      //   errorBox.innerText = 'No results found!';
-      // } else {
-      //   this.multipleResults = false;
-     // errorBox.innerText = '';
-     // }
-    // }, (err) => {
-    //   if ( err.status % 399 < 100 ) {
-    //   errorBox.innerText = 'Error! ' + err.status;
-    //   } else {
-    //     errorBox.innerText = 'Unresolved server error! ' + err.status;
-    //   }
-    // });
+          this.date = '';
+    this.weight = null;
+    this.patientId = null;
+    this.doctorId = null;
+    this.bloodpressure = '';
+    this.doctorDescription = '';
+    this.PatientNote = '';
+      
+  });
+
+//   resetVisitForm() {
+//     this.date = '';
+//     this.weight = null;
+//     this.patientId = null;
+//     this.doctorId = null;
+//     this.bloodpressure = '';
+//     this.doctorDescription = '';
+//     this.PatientNote = '';
 //   }
-// )
-// }
+ }
 }
