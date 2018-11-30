@@ -27,7 +27,6 @@ export class UserService {
   }
 
   setCurrentUser(user: any) {
-    // FIX AND CHECK ON THIS! 
     user = new User(user.id, user.username, user.firstName, user.lastName, user.role);
     this.$user.next(user);
     this.currentUser = user;
@@ -68,7 +67,10 @@ export class UserService {
     this.httpClient.get(url,  {headers:
       {'Content-Type': 'application/json'},
       withCredentials: true
-    }).subscribe();
+    }).subscribe( (data) =>
+    //do nothing 
+    this.currentUser = new User()
+    );
         this.setCurrentUser(new User());
         this.patientService.nextPatient(undefined);
   }

@@ -26,6 +26,7 @@
     "@types/auth0-js": "^8.11.7",
     "angular-bootstrap-md": "^6.3.0",
     "auth0-js": "^9.8.2",
+    "aws-sdk": "^2.365.0",
     "chart.js": "^2.5.0",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
